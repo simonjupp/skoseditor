@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Some background and simple instructions
 
 = Introduction =
 
@@ -18,4 +18,3 @@ Next download the zipped folder from this site and place it in the plugins direc
 = Feedback = 
 
 At the moment if you have any feedback e-mail me directly at simon.jupp AT manchester.ac.uk. There is probably a  load of bugs (some I know about) some I don't. I am hoping to have a decent release available early 2008.
-
