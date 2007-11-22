@@ -1,0 +1,14 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+SKOS is a model for describing controlled vocabularies, thesauri, classification systems and other similar knowledge artefacts. SKOS is currently undergoing standardisation by the Semantic Web Deployment Working Group (SWDWG) and will hopefully become a W3C recommendation sometime in 2008. You can find more information about SKOS here http://www.w3.org/2004/02/skos/
+
+
+= Protege 4 =
+
+Protege 4 (alpha) is an editor for OWL ontologies. It is being developed at The University of Manchester in collaboration with Stanford University. SKOS vocabularies can be built within the constraints of OWL which makes Protege an ideal tool for viewing and editing SKOS vocabularies. One of the major features of a SKOS model is the broader and narrower properties which are used to relate instances of the SKOS Concepts class. The broader/narrower relationships are often viewed as hierarchies, the first version of this plugin allows you to view the instance level broader/narrower hierarchy as a tree in Protege. The plan is to develop a range of views one might want went working with SKOS vocabularies in Protege. 
+
+= Download = 
+
+You will need the latest Alpha version of Protege 4. You can get this from the Stanford web site http://protege.stanford.edu/. This plugin is built to work with build Protege_4_Alpha_build_58 and above.
