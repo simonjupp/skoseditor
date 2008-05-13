@@ -1,0 +1,24 @@
+#summary One-How to use the SKOS editor to create a new SKOS vocabulary.
+
+= Introduction =
+
+The SKOS editor plugin is currently a prototype and we are now working on a fully functioning version. If you want to have a go with the current version it should be usable for viewing existing SKOS files.
+
+If you want to use it to create a new SKOS vocabulary, you have to jump through a few hoops with this version. But it can be done!! :-)
+
+1. I have created a small ontology in RDF to represent the core SKOS data model.Open Proeteg and import this ontology from here http://www.cs.man.ac.uk/~sjupp/ontologies/skos-core.rdf
+
+2. You need to create an individual in the individuals tab and make this a type of ConceptScheme.
+
+3. Make another individual and make this a type of Concept. 
+
+4. Create a object property assertion betweeen your concept scheme and your concept using the hasTopConcept property. 
+
+5. Make another object property assertion between your concept and your concept scheme individual using the skos:inScheme property. 
+
+6. That should be enough for you start building a SKOS using the editor. 
+
+A new version that work properly should be released sometime in the summer of 2008.....
+
+Simon.
+
