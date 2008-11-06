@@ -10,7 +10,7 @@ Bundle-ClassPath: .,
     lib/skosapi.jar,
     icons/,
     resources/
-    
+Update-Url: http://skoseditor.googlecode.com/svn/trunk/org.sealife.skos/skos-update.properties    
 Import-Package: org.osgi.framework,
  org.apache.log4j
 Bundle-Version: 1.0.0
