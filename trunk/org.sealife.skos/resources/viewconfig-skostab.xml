@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+
+    <!-- SKOS tab -->
+
+    <VSNode splits="0.375 0.625">
+
+        <CNode>
+            <Component label="Asserted Concept Hierarchy">
+                <Property id="pluginId" value="org.sealife.skos.SKOSHierarchyViewComponent"/>
+            </Component>
+            <Component label="Inferred Concept Hierarchy">
+                <Property id="pluginId" value="org.sealife.skos.SKOSInferredHierarchyViewComponent"/>
+            </Component>
+            <Component label="Top Concepts Hierarchy View">
+                <Property id="pluginId" value="org.sealife.skos.SKOSConceptSchemeInferredHierarchyViewComponent"/>
+            </Component>
+        </CNode>
+
+
+        <HSNode splits="0.375 0.625">
+
+            <CNode>
+                <Component label="SKOS Annotations">
+                    <Property id="pluginId" value="org.sealife.skos.SKOSAnnotations"/>
+                </Component>
+                <Component label="SKOS Usage">
+                    <Property id="pluginId" value="org.sealife.skos.SKOSUsageView"/>
+                </Component>
+            </CNode>
+
+            <VSNode splits="0.5 0.5">
+                <CNode>
+                    <Component label="SKOS Object Properties">
+                        <Property id="pluginId" value="org.sealife.skos.SKOSObjectPropertyAssertionViewComponent"/>
+                    </Component>
+                </CNode>
+
+
+                <CNode>
+                    <Component label="SKOS Data Properties">
+                        <Property id="pluginId" value="org.sealife.skos.SKOSDataPropertyAssertionViewComponent"/>
+                    </Component>
+                </CNode>
+
+            </VSNode>
+
+
+        </HSNode>
+    </VSNode>
+
+
+
+</layout>

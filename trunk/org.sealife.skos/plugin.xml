@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+
+<plugin id="org.sealife.skos" version="1.0.0.SKOSViews">
+
+    <!-- We require the core protege application plugin -->
+<!--    <requires>
+        <import plugin-id="org.protege.editor.core.application"/>
+        <import plugin-id="org.protege.editor.owl"/>
+    </requires>
+
+    <runtime>
+        <library id="skosviews" path="classes/" type="code">
+            <export prefix="*"/>
+        </library>
+        <library id="resources" path="resources/" type="resources"/>
+    </runtime>
+-->
+
+    <extension id="SKOSHierarchyViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Asserted Concept Hierarchy"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptAssertedHierarchyViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSInferredHierarchyViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Inferred Concept Hierarchy"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptInferredHierarchyViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSConceptSchemeInferredHierarchyViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Top Concepts Inferred Hierarchy View"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptSchemeInferredHierarchyViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSConceptSchemeAssertedHierarchyViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Top Concepts Hierarchy View"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptSchemeAssertedHierarchyViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSConceptListViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Concept List View"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptListViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSConceptSchemeListViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="Concept Scheme List View"/>
+        <class value="org.sealife.skos.editor.views.SKOSConceptSchemeListViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSObjectPropertyAssertionViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="SKOS Object Property Assertions"/>
+        <class value="org.sealife.skos.editor.views.SKOSObjectPropertyAssertionsViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSDataPropertyAssertionViewComponent" point="org.protege.editor.core.application.ViewComponent">
+        <label value="SKOS Data Property Assertions"/>
+        <class value="org.sealife.skos.editor.views.SKOSDataPropertyAssertionsViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSAnnotations"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="SKOS Annotations"/>
+        <class value="org.protege.editor.owl.ui.view.OWLIndividualAnnotationsViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSUsageView"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="SKOS Usage"/>
+        <class value="org.protege.editor.owl.ui.view.OWLIndividualUsageViewComponent"/>
+        <headerColor value="CC6600"/>
+        <category value="SKOSEd"/>
+    </extension>
+
+    <extension id="SKOSViewTab" point="org.protege.editor.core.application.WorkspaceTab">
+        <label value="SKOS view"/>
+        <class value="org.sealife.skos.editor.views.SKOSViewTab"/>
+        <editorKitId value="OWLEditorKit"/>
+        <index value="G"/>
+        <defaultViewConfigFileName value="viewconfig-skostab.xml"/>
+    </extension>
+
+   <extension
+         id="menu.SKOSMenu"
+         name="SKOSMenu"
+         point="org.protege.editor.core.application.EditorKitMenuAction">
+      <name value="SKOSEd"/>
+      <toolTip value="SKOS related functions"/>
+      <path value="/SlotK-A"/>
+      <editorKitId value="any"/>
+   </extension>
+
+
+
+    <!-- create new SKOS concept scheme -->
+    <!--<extension id="NewScheme"-->
+               <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
+        <!--<name value="New Concept Scheme..."/>-->
+        <!--<class value="org.sealife.skos.editor.menu.NewSKOSConceptSchemeAction"/>-->
+        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotA-A"/>-->
+        <!--<editorKitId value="OWLEditorKit"/>-->
+    <!--</extension>-->
+
+    <!-- import SKOS data model -->
+
+    <extension id="importSKOS"
+               point="org.protege.editor.core.application.EditorKitMenuAction">
+        <name value="Load SKOS Ontology (2004)"/>
+        <class value="org.sealife.skos.editor.menu.ImportSKOSDataModelAction"/>
+        <path value="org.sealife.skos.menu.SKOSMenu/SlotA-B"/>
+        <editorKitId value="OWLEditorKit"/>
+    </extension>
+
+
+    <!-- create label relation -->
+    <!--<extension id="CreateLabelRel"-->
+               <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
+        <!--<name value="Create Label Relation..."/>-->
+        <!--<class value="org.sealife.skos.editor.menu.CreateLabelRelationAction"/>-->
+        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotB-A"/>-->
+        <!--<editorKitId value="OWLEditorKit"/>-->
+    <!--</extension>-->
+
+    <!-- merge selected Conceepts -->
+    <extension id="MergeSKOSConcepts"
+               point="org.protege.editor.core.application.EditorKitMenuAction">
+        <name value="Merge selected Concepts"/>
+        <class value="org.sealife.skos.editor.menu.MergeSKOSConcepts"/>
+        <path value="org.sealife.skos.menu.SKOSMenu/SlotB-B"/>
+        <editorKitId value="OWLEditorKit"/>
+    </extension>
+
+
+    <extension id="ui.preferences.skosrenderer"
+               point="org.protege.editor.core.application.preferencespanel">
+        <label value="SKOS Renderer"/>
+        <class value="org.sealife.skos.editor.panels.SKOSRendererPreferencesPanel"/>
+    </extension>
+
+
+</plugin>

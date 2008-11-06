@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Protege SKOS plugin
+Bundle-SymbolicName: org.sealife.skos;singleton:=true
+Bundle-Category: protege
+Bundle-Description: Plugin for viewing SKOS vocabularies in Protege
+Bundle-Vendor: Sealife project
+Bundle-DocURL: http://cs.man.ac.uk/~sjupp
+Bundle-ClassPath: .,
+    lib/skosapi.jar,
+    icons/,
+    resources/
+    
+Import-Package: org.osgi.framework,
+ org.apache.log4j
+Bundle-Version: 1.0.0
+Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
+Require-Bundle: org.eclipse.equinox.registry,
+ org.eclipse.equinox.common,
+ org.protege.editor.core.application,
+ org.protege.editor.owl,
+ org.semanticweb.owl.owlapi
