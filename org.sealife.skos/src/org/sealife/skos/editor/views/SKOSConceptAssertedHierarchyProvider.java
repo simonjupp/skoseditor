@@ -1,11 +1,9 @@
 package org.sealife.skos.editor.views;
 
-import org.sealife.skos.SKOSVocabulary;
+import org.sealife.skos.editor.SKOSVocabulary;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.skos.SKOSCreationException;
-import org.semanticweb.skos.SKOSDataFactory;
 import org.semanticweb.skosapibinding.SKOSManager;
-import org.semanticweb.skosapibinding.SKOStoOWLConverter;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -52,14 +50,11 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
 
     private SKOSManager skosManager;
 
-    private SKOSDataFactory skosFactory;
-
     public SKOSConceptAssertedHierarchyProvider(OWLOntologyManager owlOntologyManager) {
 
         super(owlOntologyManager);
 
         skosManager = new SKOSManager(owlOntologyManager);
-        skosFactory = skosManager.getSKOSDataFactory();
 
         ontologies = new HashSet<OWLOntology>(10);
         conceptsToView = new HashSet<OWLIndividual>(10000);
@@ -80,8 +75,6 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
         this.ontologies.clear();
         this.ontologies.addAll(ontologies);
         this.conceptsToView.clear();
-        SKOStoOWLConverter converter = new SKOStoOWLConverter();
-
 
         skosConcept = getManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT);
 
@@ -89,7 +82,7 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
             try {
                 skosManager.loadDataset(ont.getURI());
             } catch (SKOSCreationException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();  
             }
 
             for (OWLObjectPropertyAssertionAxiom propAx : ont.getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
@@ -122,8 +115,6 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
 
         for(OWLOntologyChange change : changes) {
             if(change.isAxiomChange()) {
-
-
                 if(change.getAxiom() instanceof OWLObjectPropertyAssertionAxiom || change.getAxiom() instanceof OWLClassAssertionAxiom) {
 
 
@@ -154,7 +145,6 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
             getParent2Child().clear();
             getParent2Child().clear();
             conceptsToView.clear();
-            long t0 = System.currentTimeMillis();
             for (OWLOntology ont : ontologies) {
 
                 for (OWLObjectPropertyAssertionAxiom propAx : ont.getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {

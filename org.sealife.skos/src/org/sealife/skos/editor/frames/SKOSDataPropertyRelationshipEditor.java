@@ -6,7 +6,10 @@ import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.ui.frame.AbstractOWLFrameSectionRowObjectEditor;
 import org.protege.editor.owl.ui.frame.OWLConstantEditor;
 import org.protege.editor.owl.ui.frame.OWLDataPropertyConstantPair;
-import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.model.OWLConstant;
+import org.semanticweb.owl.model.OWLDataProperty;
+import org.semanticweb.owl.model.OWLDataPropertyExpression;
+import org.semanticweb.owl.model.OWLPropertyAssertionAxiom;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -36,7 +39,7 @@ import java.util.ArrayList;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 20-May-2007<br><br>
@@ -67,28 +70,15 @@ public class SKOSDataPropertyRelationshipEditor extends AbstractOWLFrameSectionR
         this.dataProperty = prop;
         final Border paddingBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 
-//        dataPropertySelectorPanel = new OWLDataPropertySelectorPanel(owlEditorKit);
-//        dataPropertySelectorPanel.setBorder(BorderFactory.createCompoundBorder(paddingBorder,
-//                                                                               BorderFactory.createTitledBorder("Data Property")));
-//        dataPropertySelectorPanel.addSelectionListener(changeListener);
-
         constantEditorComponent = new OWLConstantEditor(owlEditorKit);
         constantEditorComponent.setBorder(paddingBorder);
 
         componentHolder = new JPanel(new BorderLayout());
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-//        splitPane.setLeftComponent(dataPropertySelectorPanel);
-//        splitPane.setRightComponent(constantEditorComponent);
         componentHolder.add(constantEditorComponent, BorderLayout.CENTER);
     }
 
 
     public void setDataPropertyAxiom(OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLConstant> ax) {
-        OWLDataPropertyExpression p = ax.getProperty();
-//        if (p instanceof OWLDataProperty){
-//            dataPropertySelectorPanel.setSelection((OWLDataProperty)p);
-//        }
-//        System.err.println("shoul be here: " + ax.getObject().getLiteral());
         constantEditorComponent.setEditedObject(ax.getObject());
     }
 
@@ -120,18 +110,6 @@ public class SKOSDataPropertyRelationshipEditor extends AbstractOWLFrameSectionR
 //        dataPropertySelectorPanel.dispose();
         listeners.clear();
     }
-
-
-    private void checkStatus(){
-//        boolean status = constantEditorComponent.getEditedObject() != null;
-//        if (status != currentStatus){
-//            currentStatus = status;
-//            for (InputVerificationStatusChangedListener l : listeners){
-//                l.verifiedStatusChanged(currentStatus);
-//            }
-//        }
-    }
-
 
     public void addStatusChangedListener(InputVerificationStatusChangedListener listener) {
 //        listeners.add(listener);

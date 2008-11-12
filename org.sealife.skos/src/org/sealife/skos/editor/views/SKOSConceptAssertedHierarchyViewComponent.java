@@ -16,16 +16,14 @@ import org.protege.editor.owl.ui.tree.OWLTreeDragAndDropHandler;
 import org.protege.editor.owl.ui.view.CreateNewTarget;
 import org.protege.editor.owl.ui.view.DeleteIndividualAction;
 import org.protege.editor.owl.ui.view.Deleteable;
-import org.sealife.skos.SKOSVocabulary;
 import org.sealife.skos.editor.SKOSIcons;
+import org.sealife.skos.editor.SKOSVocabulary;
 import org.sealife.skos.editor.panels.SKOSConceptSelectorPanel;
 import org.sealife.skos.editor.panels.SKOSEntityCreationPanel;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntitySetProvider;
 import org.semanticweb.skos.SKOSConcept;
 import org.semanticweb.skos.SKOSDataFactory;
-import org.semanticweb.skosapibinding.SKOSManager;
-import uk.ac.manchester.cs.skos.SKOSEntityAssertionImpl;
 import uk.ac.manchester.cs.skos.SKOSObjectRelationAssertionImpl;
 
 import javax.swing.*;
@@ -68,9 +66,6 @@ import java.util.Set;
  */
 public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchyViewComponent implements Deleteable, CreateNewTarget {
 
-    private TreeSelectionListener treeListener;
-
-    private OWLOntologyChangeListener listener;
     private OWLModelManagerListener modelListener;
 
     private AddNarrowerConceptAction addNarrowerConceptAction;
@@ -82,8 +77,6 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
     private AddRelatedConceptAction addRelatedConceptAction;
 
     private AddRelatedDataPropertyAction addRelatedDataPropertyAction;
-
-    private SKOSManager skosManager;
 
     private SKOSDataFactory skosFactory;
 
@@ -117,23 +110,13 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
 
             public void handleChange(OWLModelManagerChangeEvent event) {
                 if (event.isType(EventType.ONTOLOGY_LOADED) || event.isType(EventType.ONTOLOGY_CREATED)) {
-//                    SKOSEntityRenderer rend = new SKOSEntityRenderer();
-//                    rend.setup(getOWLModelManager());
-//                    getOWLModelManager().setOWLEntityRenderer(rend);
-//                    System.err.println("active ontologies changed!!");
                     getProvider().setOntologies(getOWLModelManager().getOntologies());
                 }
             }
         });
 
 
-
-        skosManager = new SKOSManager(getOWLModelManager().getOWLOntologyManager());
-        skosFactory = skosManager.getSKOSDataFactory();
-
-
-        treeListener = getTreeListener();
-        getTree().getSelectionModel().addTreeSelectionListener( treeListener = new TreeSelectionListener() {
+        getTree().getSelectionModel().addTreeSelectionListener( new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
                 transmitSelection();
                 addSKOSConceptAction.updateState();
@@ -144,7 +127,9 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
             }
         });
 
+        getTree().setAutoscrolls(true);
         getTree().setDragAndDropHandler(new OWLTreeDragAndDropHandler<OWLIndividual>() {
+
 
             public void move(OWLIndividual child, OWLIndividual fromParent, OWLIndividual toParent) {
                 List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
@@ -162,20 +147,20 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
                 changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(),
                                          getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER),
                                                     parent)));
-                                                                                                         
+
                 getOWLModelManager().applyChanges(changes);
             }
         });
 
-        listener = new OWLOntologyChangeListener() {
-            public int hashCode() {
-                return super.hashCode();    //To change body of overridden methods use File | Settings | File Templates.
-            }
-
-            public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
-                System.err.println("the ontology has changed!");
-            }
-        };
+//        listener = new OWLOntologyChangeListener() {
+//            public int hashCode() {
+//                return super.hashCode();    //To change body of overridden methods use File | Settings | File Templates.
+//            }
+//
+//            public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+////                System.err.println("the ontology has changed!");
+//            }
+//        };
 
 
         addSKOSConceptAction = new AddSKOSConceptAction(getProvider());
@@ -205,6 +190,7 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
 
     public void disposeView() {
         getOWLModelManager().removeListener(modelListener);
+
         super.disposeView();
     }
 
@@ -294,11 +280,8 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
         SKOSConcept concept = skosFactory.getSKOSConcept(relatedInd.getURI());
         SKOSConcept selectedConcept = skosFactory.getSKOSConcept(selected.getURI());
 
-        SKOSEntityAssertionImpl ass = (SKOSEntityAssertionImpl) skosFactory.getSKOSEntityAssertion(concept);
         SKOSObjectRelationAssertionImpl ass2 = (SKOSObjectRelationAssertionImpl) skosFactory.getSKOSObjectRelationAssertion(selectedConcept, skosFactory.getSKOSNarrowerProperty(), concept);
 
-//        changes.addAll(set.getOntologyChanges());
-        changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(), ass.getAssertionAxiom()));
         changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(), ass2.getAssertionAxiom()));
 		this.getOWLModelManager().applyChanges(changes);
 		if (relatedInd != null) {
@@ -312,7 +295,7 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
     public void addBroaderConcept () {
 
         OWLIndividual relatedInd = SKOSConceptSelectorPanel.showDialog(getOWLEditorKit());
-
+        
         OWLIndividual selected = getSelectedOWLIndividual();
 
         if (relatedInd == null) {
@@ -324,11 +307,8 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
         SKOSConcept concept = skosFactory.getSKOSConcept(relatedInd.getURI());
         SKOSConcept selectedConcept = skosFactory.getSKOSConcept(selected.getURI());
 
-        SKOSEntityAssertionImpl ass = (SKOSEntityAssertionImpl) skosFactory.getSKOSEntityAssertion(concept);
         SKOSObjectRelationAssertionImpl ass2 = (SKOSObjectRelationAssertionImpl) skosFactory.getSKOSObjectRelationAssertion(selectedConcept, skosFactory.getSKOSBroaderProperty(), concept);
 
-//        changes.addAll(set.getOntologyChanges());
-        changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(), ass.getAssertionAxiom()));
         changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(), ass2.getAssertionAxiom()));
 		this.getOWLModelManager().applyChanges(changes);
 		if (relatedInd != null) {

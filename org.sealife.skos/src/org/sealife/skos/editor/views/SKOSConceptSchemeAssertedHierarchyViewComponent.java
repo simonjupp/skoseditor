@@ -3,21 +3,20 @@ package org.sealife.skos.editor.views;
 import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.model.event.OWLModelManagerChangeEvent;
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
-import org.protege.editor.owl.ui.renderer.OWLCellRenderer;
 import org.protege.editor.owl.ui.tree.OWLModelManagerTree;
-import org.sealife.skos.SKOSVocabulary;
+import org.sealife.skos.editor.SKOSVocabulary;
+import org.sealife.skos.editor.panels.ConceptSchemeComboBox;
 import org.semanticweb.owl.model.OWLClassAssertionAxiom;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLOntology;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -76,9 +75,7 @@ public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHie
 
         for (OWLOntology onto  : getOWLEditorKit().getModelManager().getOntologies()) {
             Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME));
-            Iterator it = axioms.iterator();
-            while (it.hasNext()) {
-                OWLClassAssertionAxiom axiom = (OWLClassAssertionAxiom) it.next();
+            for (OWLClassAssertionAxiom axiom : axioms) {
                 inds.add(axiom.getIndividual());
             }
 
@@ -92,11 +89,7 @@ public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHie
         super.initialiseIndividualsView();
 
 
-        schemaBox = new JComboBox(getConceptSchemes().toArray());
-        if(!getConceptSchemes().isEmpty()) {
-            provider.setConceptSchema(getSelectedSchema());
-        }
-        schemaBox.setRenderer(new OWLCellRenderer(getOWLEditorKit()));
+        schemaBox = ConceptSchemeComboBox.getConceptSchemeComboBox(getOWLEditorKit());
 
         provider.setConceptSchema(getSelectedSchema());
         provider.setOntologies(getOWLModelManager().getOntologies());

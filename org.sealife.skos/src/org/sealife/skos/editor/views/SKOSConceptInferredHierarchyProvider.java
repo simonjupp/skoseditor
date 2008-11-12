@@ -1,8 +1,7 @@
 package org.sealife.skos.editor.views;
 
 import org.protege.editor.owl.model.OWLModelManager;
-import org.protege.editor.owl.model.event.OWLModelManagerListener;
-import org.sealife.skos.SKOSVocabulary;
+import org.sealife.skos.editor.SKOSVocabulary;
 import org.semanticweb.owl.inference.OWLReasoner;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.*;
@@ -41,13 +40,10 @@ import java.util.Set;
  */
 public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyProvider {
 
-    private Set<OWLOntology> ontologies;
 
     private OWLReasoner reasoner;
 
     private boolean isClassified = false;
-
-    private OWLModelManagerListener modelListener;
 
     private final OWLModelManager modelManager;
 
@@ -60,7 +56,6 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
 
         this.modelManager = modelManager;
         this.reasoner = reasoner;
-        ontologies = new HashSet<OWLOntology>(10);
         conceptsToView = new HashSet<OWLIndividual>(10000);
 
         skosConcept = modelManager.getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT);
@@ -84,8 +79,6 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
             return;
         }
         setFireEvents(false);
-        this.ontologies.clear();
-        this.ontologies.addAll(ontologies);
         this.reasoner = modelManager.getReasoner();
         conceptsToView.clear();
         setUp();
@@ -116,7 +109,7 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
             fireHierarchyChanged();
             setFireEvents(true);
         } catch (OWLReasonerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
     }
@@ -126,11 +119,11 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     }
 
     protected Set<OWLObjectProperty> loadBroaderProps() {
-        Set<Set<OWLObjectProperty>> broaderProperty = null;
+        Set<Set<OWLObjectProperty>> broaderProperty = new HashSet<Set<OWLObjectProperty>>();
         try {
             broaderProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
         } catch (OWLReasonerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
 
@@ -143,11 +136,11 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     }
 
     protected Set<OWLObjectProperty> loadNarrowerProps() {
-        Set<Set<OWLObjectProperty>> narrowerProperty = null;
+        Set<Set<OWLObjectProperty>> narrowerProperty = new HashSet<Set<OWLObjectProperty>>();;
         try {
             narrowerProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
         } catch (OWLReasonerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
 
