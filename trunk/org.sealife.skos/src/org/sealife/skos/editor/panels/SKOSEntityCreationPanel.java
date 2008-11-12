@@ -5,14 +5,12 @@ import org.protege.editor.owl.model.entity.OWLEntityCreationException;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.protege.editor.owl.ui.OWLEntityCreationPanel;
 import org.protege.editor.owl.ui.UIHelper;
-import org.protege.editor.owl.ui.renderer.OWLCellRenderer;
 import org.semanticweb.owl.model.*;
 import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -61,40 +59,18 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
         this.conceptClass = owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSRDFVocabulary.CONCEPT.getURI());
         this.inScheme = owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.INSCHEME.getURI());
 
-        schemaBox = new JComboBox(getConceptSchemes().toArray());
-        if(!getConceptSchemes().isEmpty()) {
-            schemaBox.setSelectedIndex(0);
+        schemaBox = ConceptSchemeComboBox.getConceptSchemeComboBox(owlEditorKit);
+
+        if(!ConceptSchemeComboBox.getConceptSchemes(owlEditorKit).isEmpty()) {
+            JPanel schemeSelector = new JPanel(new BorderLayout(4,4));
+
+            JLabel jLabel = new JLabel("Choose a Concept Scheme for this Concept");
+            jLabel.setBorder(new EmptyBorder(2,10,2,2));
+            schemeSelector.add(jLabel, BorderLayout.NORTH);
+            schemeSelector.add(schemaBox, BorderLayout.CENTER);
+            add(schemeSelector);
         }
-        schemaBox.setRenderer(new OWLCellRenderer(owlEditorKit));
-
-        add(schemaBox, BorderLayout.CENTER);
-
     }
-
-    public Set<OWLIndividual> getConceptSchemes () {
-
-        Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
-
-        for (OWLOntology onto  : owlEditorKit.getModelManager().getOntologies()) {
-            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(conceptSchemeClass);
-            for (OWLClassAssertionAxiom clssAx : axioms) {
-                inds.add(clssAx.getIndividual());
-            }
-        }
-        return inds;
-    }
-
-//    public OWLIndividual getCurrentConceptScheme () {
-//
-//        OWLOntology onto = owlEditorKit.getModelManager().getActiveOntology();
-//        Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(conceptSchemeClass);
-//        Iterator it = axioms.iterator();
-//        if (it.hasNext()) {
-//            OWLClassAssertionAxiom ax = (OWLClassAssertionAxiom) it.next();
-//            return ax.getIndividual();
-//        }
-//        return null;
-//    }
 
     private OWLIndividual getSelectedConceptScheme () {
         return (OWLIndividual) schemaBox.getSelectedItem();

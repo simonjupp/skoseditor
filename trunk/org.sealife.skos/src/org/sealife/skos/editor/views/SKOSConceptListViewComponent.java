@@ -9,16 +9,16 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLIcons;
 import org.protege.editor.owl.ui.list.OWLObjectList;
 import org.protege.editor.owl.ui.view.*;
+import org.sealife.skos.editor.panels.SKOSEntityCreationPanel;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
 import org.semanticweb.owl.util.OWLEntityRemover;
 import org.semanticweb.owl.util.OWLEntitySetProvider;
-import org.semanticweb.skosapibinding.SKOSManager;
-import org.semanticweb.skosapibinding.SKOStoOWLConverter;
+import org.semanticweb.skos.SKOSConcept;
 import org.semanticweb.skos.SKOSDataFactory;
 import org.semanticweb.skos.SKOSDataset;
-import org.semanticweb.skos.SKOSConcept;
-import org.sealife.skos.editor.panels.SKOSEntityCreationPanel;
+import org.semanticweb.skosapibinding.SKOSManager;
+import org.semanticweb.skosapibinding.SKOStoOWLConverter;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -56,7 +56,7 @@ import java.util.TreeSet;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Matthew Horridge, Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 29-Jan-2007<br>
@@ -82,11 +82,11 @@ public class SKOSConceptListViewComponent extends
         skosManager = new SKOSManager(getOWLEditorKit().getModelManager().getOWLOntologyManager());
         skosDataFactory = skosManager.getSKOSDataFactory();
 
-        this.list = new OWLObjectList<OWLIndividual>(this.getOWLEditorKit());
-		this.list.setSelectionMode(this.selectionMode);
-		this.setLayout(new BorderLayout());
-		this.add(new JScrollPane(this.list));
-		this.list.addListSelectionListener(new ListSelectionListener() {
+        list = new OWLObjectList<OWLIndividual>(this.getOWLEditorKit());
+		list.setSelectionMode(this.selectionMode);
+		setLayout(new BorderLayout());
+		add(new JScrollPane(this.list));
+		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					if (SKOSConceptListViewComponent.this.list
@@ -100,7 +100,9 @@ public class SKOSConceptListViewComponent extends
 				}
 			}
 		});
-		this.list.addMouseListener(new MouseAdapter() {
+
+
+        list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				SKOSConceptListViewComponent.this
@@ -114,20 +116,20 @@ public class SKOSConceptListViewComponent extends
 				SKOSConceptListViewComponent.this.processChanges(changes);
 			}
 		};
-		this.getOWLModelManager().addOntologyChangeListener(this.listener);
+		getOWLModelManager().addOntologyChangeListener(listener);
 
         setupActions();
 		this.changeListenerMediator = new ChangeListenerMediator();
 		this.individualsInList = new TreeSet<OWLIndividual>(getOWLModelManager().getOWLObjectComparator());
 		this.refill();
-		this.modelManagerListener = new OWLModelManagerListener() {
+		modelManagerListener = new OWLModelManagerListener() {
 			public void handleChange(OWLModelManagerChangeEvent event) {
 				if (event.isType(EventType.ACTIVE_ONTOLOGY_CHANGED)) {
 					SKOSConceptListViewComponent.this.refill();
 				}
 			}
 		};
-		this.getOWLModelManager().addListener(this.modelManagerListener);
+		getOWLModelManager().addListener(modelManagerListener);
 	}
 
 
@@ -188,9 +190,10 @@ public class SKOSConceptListViewComponent extends
 
 	@Override
 	public void disposeView() {
-		this.getOWLModelManager().removeOntologyChangeListener(this.listener);
-		this.getOWLModelManager().removeListener(this.modelManagerListener);
-	}
+
+        getOWLModelManager().removeOntologyChangeListener(listener);
+		getOWLModelManager().removeListener(modelManagerListener);
+    }
 
 	public OWLIndividual getSelectedIndividual() {
 		return (OWLIndividual) this.list.getSelectedValue();

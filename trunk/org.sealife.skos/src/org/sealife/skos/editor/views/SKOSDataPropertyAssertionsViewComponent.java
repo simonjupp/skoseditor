@@ -32,7 +32,7 @@ import java.awt.*;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Matthew Horridge, Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 30-Jan-2007<br><br>

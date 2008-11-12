@@ -1,11 +1,10 @@
 package org.sealife.skos.editor.panels;
 
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.ui.preferences.OWLPreferencesPanel;
 import org.protege.editor.owl.ui.renderer.OWLEntityRendererImpl;
 import org.protege.editor.owl.ui.renderer.OWLModelManagerEntityRenderer;
 import org.protege.editor.owl.ui.renderer.OWLRendererPreferences;
-import org.sealife.skos.SKOSEntityRenderer;
+import org.sealife.skos.editor.SKOSEntityRenderer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +32,7 @@ import java.awt.*;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Simon Jupp<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
  * Date: 08-Jun-2006<br><br>
@@ -42,8 +41,6 @@ import java.awt.*;
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
 public class SKOSRendererPreferencesPanel extends OWLPreferencesPanel {
-
-    private static final Logger logger = Logger.getLogger(SKOSRendererPreferencesPanel.class);
 
     private JCheckBox setSKOSRenderingCheckBox;
 

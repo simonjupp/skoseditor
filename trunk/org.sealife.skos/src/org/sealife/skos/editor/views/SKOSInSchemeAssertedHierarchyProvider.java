@@ -1,8 +1,7 @@
 package org.sealife.skos.editor.views;
 
 import org.protege.editor.owl.model.OWLModelManager;
-import org.protege.editor.owl.model.event.OWLModelManagerListener;
-import org.sealife.skos.SKOSVocabulary;
+import org.sealife.skos.editor.SKOSVocabulary;
 import org.semanticweb.owl.model.*;
 import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
@@ -39,15 +38,9 @@ import java.util.Set;
  */
 public class SKOSInSchemeAssertedHierarchyProvider extends AbstractSKOSHierarchyProvider {
 
-    private Set<OWLOntology> ontologies;
-
-    private OWLModelManagerListener modelListener;
 
     private final OWLModelManager modelManager;
 
-    private OWLClass skosConcept;
-
-    private OWLClass skosConceptScheme;
 
     private OWLObjectProperty inScheme;
 
@@ -70,10 +63,7 @@ public class SKOSInSchemeAssertedHierarchyProvider extends AbstractSKOSHierarchy
     protected SKOSInSchemeAssertedHierarchyProvider(final OWLModelManager modelManager) {
         super(modelManager.getOWLOntologyManager());
         this.modelManager = modelManager;
-        ontologies = new HashSet<OWLOntology>(10);
 
-        skosConcept = modelManager.getOWLDataFactory().getOWLClass(SKOSRDFVocabulary.CONCEPT.getURI());
-        skosConceptScheme = modelManager.getOWLDataFactory().getOWLClass(SKOSRDFVocabulary.CONCEPTSCHEME.getURI());
         inScheme = modelManager.getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.INSCHEME.getURI());
         topConceptOf = modelManager.getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.TOPCONCEPTOF.getURI());
 
@@ -89,8 +79,6 @@ public class SKOSInSchemeAssertedHierarchyProvider extends AbstractSKOSHierarchy
         }
 
         setFireEvents(false);
-        this.ontologies.clear();
-        this.ontologies.addAll(ontologies);
         getRoots().clear();
         conceptsToView.clear();
         topConcepts.clear();

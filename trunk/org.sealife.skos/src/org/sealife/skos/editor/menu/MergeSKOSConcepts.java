@@ -1,14 +1,17 @@
 package org.sealife.skos.editor.menu;
 
 import org.protege.editor.owl.ui.action.FocusedComponentAction;
+import org.sealife.skos.editor.SKOSVocabulary;
+import org.sealife.skos.editor.panels.MergeSKOSConceptsPanel;
+import org.sealife.skos.editor.views.SKOSConceptAssertedHierarchyViewComponent;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityRenamer;
-import org.sealife.skos.editor.views.SKOSConceptAssertedHierarchyViewComponent;
-import org.sealife.skos.editor.panels.MergeSKOSConceptsPanel;
-import org.sealife.skos.SKOSVocabulary;
 
 import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -93,12 +96,9 @@ public class MergeSKOSConcepts extends FocusedComponentAction<SKOSConceptAsserte
         OWLIndividual mainInd = indList.get(indList.size() -1);
         indList.remove(indList.size() -1);
 
-        Iterator it = indList.iterator();
-        while (it.hasNext()) {
-            OWLIndividual next = (OWLIndividual) it.next();
-            getOWLModelManager().applyChanges(renamer.changeURI(next, mainInd.getURI()));
+        for (OWLIndividual anIndList : indList) {
+            getOWLModelManager().applyChanges(renamer.changeURI(anIndList, mainInd.getURI()));
         }
-
 
         // now add the remaining labels
 

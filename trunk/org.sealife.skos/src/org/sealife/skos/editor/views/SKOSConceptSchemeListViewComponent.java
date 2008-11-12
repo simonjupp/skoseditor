@@ -56,7 +56,7 @@ import java.util.TreeSet;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Matthew Horridge, Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 29-Jan-2007<br>

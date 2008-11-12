@@ -1,13 +1,13 @@
 package org.sealife.skos.editor.frames;
 
+import org.protege.editor.owl.OWLEditorKit;
+import org.protege.editor.owl.ui.frame.AbstractOWLFrame;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
-import org.protege.editor.owl.ui.frame.*;
-import org.protege.editor.owl.OWLEditorKit;
 import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -32,7 +32,7 @@ import java.util.HashSet;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 30-Jan-2007<br><br>

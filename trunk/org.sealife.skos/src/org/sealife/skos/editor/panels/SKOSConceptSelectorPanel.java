@@ -40,7 +40,7 @@ import java.util.Set;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Matthew Horridge, Simon Jupp<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
  * Date: 05-Jul-2006<br>
@@ -90,12 +90,15 @@ public class SKOSConceptSelectorPanel extends AbstractSelectorPanel<OWLIndividua
     public static OWLIndividual showDialog(OWLEditorKit owlEditorKit) {
         SKOSConceptSelectorPanel panel = new SKOSConceptSelectorPanel(owlEditorKit, true, owlEditorKit.getModelManager().getOntologies(), ListSelectionModel.SINGLE_SELECTION);
 
-        int ret = new UIHelper(owlEditorKit).showValidatingDialog("Create a new SKOS Concept", panel, panel.viewComponent);
+        int ret = new UIHelper(owlEditorKit).showDialog("Create a new SKOS Concept", panel, panel.viewComponent);
 
         if (ret == JOptionPane.OK_OPTION) {
-            return panel.getSelectedObject();
+            OWLIndividual ind = panel.getSelectedObject();
+            panel.viewComponent.dispose();
+            return ind;
         }
         else {
+            panel.viewComponent.dispose();
             return null;
         }
     }

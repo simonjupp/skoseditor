@@ -32,7 +32,7 @@ import java.util.Set;
  */
 
 /**
- * Author: Matthew Horridge<br>
+ * Author: Simon Jupp<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 30-Jan-2007<br><br>

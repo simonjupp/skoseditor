@@ -1,11 +1,11 @@
 package org.sealife.skos.editor.views;
 
 import org.protege.editor.owl.model.event.OWLModelManagerListener;
+import org.protege.editor.owl.ui.OWLObjectComparatorAdapter;
 import org.protege.editor.owl.ui.tree.OWLModelManagerTree;
 import org.protege.editor.owl.ui.view.AbstractOWLIndividualViewComponent;
 import org.protege.editor.owl.ui.view.ChangeListenerMediator;
 import org.protege.editor.owl.ui.view.Findable;
-import org.protege.editor.owl.ui.OWLObjectComparatorAdapter;
 import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.model.OWLIndividual;
 
@@ -14,9 +14,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Comparator;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -128,7 +128,8 @@ public abstract class AbstractHierarchyViewComponent  extends AbstractOWLIndivid
 
     public OWLModelManagerTree<OWLIndividual> createTree(AbstractSKOSHierarchyProvider provider) {
         tree = new OWLModelManagerTree<OWLIndividual> (getOWLEditorKit(), provider);
-                final Comparator<OWLIndividual> comp = getOWLModelManager().getOWLObjectComparator();
+
+        final Comparator<OWLIndividual> comp = getOWLModelManager().getOWLObjectComparator();
         getTree().setOWLObjectComparator(new OWLObjectComparatorAdapter<OWLIndividual>(comp) {
             public int compare(OWLIndividual o1, OWLIndividual o2) {
                return super.compare(o1, o2);
