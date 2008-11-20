@@ -3,7 +3,6 @@ package org.sealife.skos.editor.menu;
 import org.protege.editor.owl.ui.action.ProtegeOWLAction;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
 import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.util.SimpleURIMapper;
 
 import java.awt.event.ActionEvent;
 import java.net.URI;
@@ -47,8 +46,8 @@ public class ImportSKOSDataModelAction extends ProtegeOWLAction {
 //            System.err.println("URI: " + url.toString());
 
             OWLOntologyManager man = getOWLModelManager().getOWLOntologyManager();
-            man.addURIMapper(new SimpleURIMapper(URI.create("http://www.w3.org/2004/02/skos/core"), URI.create("http://www.cs.man.ac.uk/~sjupp/skos/skos-core-2004.owl")));
-            getOWLModelManager().getOWLOntologyManager().loadOntology(URI.create("http://www.w3.org/2004/02/skos/core"));
+//            man.addURIMapper(new SimpleURIMapper(URI.create("http://www.w3.org/2004/02/skos/core"), URI.create("http://www.cs.man.ac.uk/~sjupp/skos/skos-core-2004.owl")));
+            getOWLModelManager().loadOntology(URI.create("http://www.w3.org/2004/02/skos/core"));
           
         } catch (OWLOntologyCreationException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

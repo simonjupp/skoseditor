@@ -24,6 +24,7 @@ import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntitySetProvider;
 import org.semanticweb.skos.SKOSConcept;
 import org.semanticweb.skos.SKOSDataFactory;
+import org.semanticweb.skosapibinding.SKOSManager;
 import uk.ac.manchester.cs.skos.SKOSObjectRelationAssertionImpl;
 
 import javax.swing.*;
@@ -78,6 +79,8 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
 
     private AddRelatedDataPropertyAction addRelatedDataPropertyAction;
 
+    private SKOSManager skosManager;
+
     private SKOSDataFactory skosFactory;
 
     protected AbstractSKOSHierarchyProvider createProvider() {
@@ -114,6 +117,11 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
                 }
             }
         });
+
+
+
+        skosManager = new SKOSManager(getOWLModelManager().getOWLOntologyManager());
+        skosFactory = skosManager.getSKOSDataFactory();
 
 
         getTree().getSelectionModel().addTreeSelectionListener( new TreeSelectionListener() {

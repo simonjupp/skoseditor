@@ -2,6 +2,7 @@ package org.sealife.skos.editor.frames;
 
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.ui.frame.*;
+import org.protege.editor.owl.ui.selector.AbstractSelectorPanel;
 import org.semanticweb.owl.inference.OWLReasonerException;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
@@ -49,10 +50,13 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
 
     private OWLObjectProperty relatedProp;
 
-    public SKOSRelatedPropertyAssertionAxiomFrameSection(OWLEditorKit owlEditorKit, OWLFrame<OWLIndividual> frame, OWLObjectProperty property, String label) {
+    AbstractSelectorPanel panel;
+
+    public SKOSRelatedPropertyAssertionAxiomFrameSection(OWLEditorKit owlEditorKit, OWLFrame<OWLIndividual> frame, OWLObjectProperty property, String label, AbstractSelectorPanel panel ) {
         super(owlEditorKit, label, label, frame);
         relatedProp = property;
         added = new HashSet<OWLObjectPropertyAssertionAxiom>();
+        this.panel = panel;
     }
 
 
@@ -76,7 +80,7 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
                                                                       ax) {
 
                     protected OWLFrameSectionRowObjectEditor<OWLObjectPropertyIndividualPair> getObjectEditor() {
-                        return new SKOSObjectPropertyIndividualPairEditor(getOWLEditorKit(), relatedProp);    
+                        return new SKOSObjectPropertyIndividualPairEditor(getOWLEditorKit(), relatedProp, panel);
                     }
                 });
                 added.add(ax);
@@ -128,7 +132,7 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
     public OWLFrameSectionRowObjectEditor<OWLObjectPropertyIndividualPair> getObjectEditor() {
 //        return new SKOSConceptSelectorPanel(getOWLEditorKit());
 //        SKOSConceptSelectorPanel panel = new SKOSConceptSelectorPanel(getOWLEditorKit());
-        return new SKOSObjectPropertyIndividualPairEditor(getOWLEditorKit(), relatedProp);
+        return new SKOSObjectPropertyIndividualPairEditor(getOWLEditorKit(), relatedProp, panel);
 //        return new OWLObjectPropertyIndividualPair(relatedProp, panel.getSelectedObject());
 //        return new OWLObjectPropertyIndividualPairEditor(getOWLEditorKit());
     }

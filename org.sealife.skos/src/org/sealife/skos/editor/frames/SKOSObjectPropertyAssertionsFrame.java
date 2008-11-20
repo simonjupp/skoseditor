@@ -2,10 +2,13 @@ package org.sealife.skos.editor.frames;
 
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.ui.frame.AbstractOWLFrame;
+import org.sealife.skos.editor.panels.SKOSConceptSchemeSelectorPanel;
+import org.sealife.skos.editor.panels.SKOSConceptSelectorPanel;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
 import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 /*
@@ -42,19 +45,19 @@ public class SKOSObjectPropertyAssertionsFrame extends AbstractOWLFrame<OWLIndiv
     public SKOSObjectPropertyAssertionsFrame(OWLEditorKit owlEditorKit) {
         super(owlEditorKit.getModelManager().getOWLOntologyManager());
         Set<OWLObjectProperty> filetrProps = new HashSet<OWLObjectProperty>(7);
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATED.getURI()), "SKOS related assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATED.getURI()), "SKOS related assertion", new SKOSConceptSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATED.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.INSCHEME.getURI()), "SKOS in scheme assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.INSCHEME.getURI()), "SKOS in scheme assertion", new SKOSConceptSchemeSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.INSCHEME.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.TOPCONCEPTOF.getURI()), "SKOS top concept of assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.TOPCONCEPTOF.getURI()), "SKOS top concept of assertion", new SKOSConceptSchemeSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.TOPCONCEPTOF.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.BROADMATCH.getURI()), "SKOS broad match assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.BROADMATCH.getURI()), "SKOS broad match assertion", new SKOSConceptSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.BROADMATCH.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.NARROWMATCH.getURI()), "SKOS narrow match assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.NARROWMATCH.getURI()), "SKOS narrow match assertion", new SKOSConceptSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.NARROWMATCH.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATEDMATCH.getURI()), "SKOS related match assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATEDMATCH.getURI()), "SKOS related match assertion", new SKOSConceptSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.RELATEDMATCH.getURI()));
-        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.EXACTMATCH.getURI()), "SKOS exact match assertion"));
+        addSection(new SKOSRelatedPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.EXACTMATCH.getURI()), "SKOS exact match assertion", new SKOSConceptSelectorPanel(owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)));
         filetrProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSRDFVocabulary.EXACTMATCH.getURI()));
         addSection(new SKOSOtherObjectPropertyAssertionAxiomFrameSection(owlEditorKit, this, filetrProps));
 

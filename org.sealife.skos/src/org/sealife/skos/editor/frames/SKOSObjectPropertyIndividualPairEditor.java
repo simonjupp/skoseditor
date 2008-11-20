@@ -3,7 +3,7 @@ package org.sealife.skos.editor.frames;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.ui.frame.AbstractOWLFrameSectionRowObjectEditor;
 import org.protege.editor.owl.ui.frame.OWLObjectPropertyIndividualPair;
-import org.protege.editor.owl.ui.selector.OWLIndividualSelectorPanel;
+import org.protege.editor.owl.ui.selector.AbstractSelectorPanel;
 import org.semanticweb.owl.model.OWLIndividual;
 import org.semanticweb.owl.model.OWLObjectProperty;
 import org.semanticweb.owl.model.OWLObjectPropertyExpression;
@@ -45,19 +45,18 @@ public class SKOSObjectPropertyIndividualPairEditor extends
         AbstractOWLFrameSectionRowObjectEditor<OWLObjectPropertyIndividualPair> {
 	private JPanel editorPanel;
 //	private OWLObjectPropertySelectorPanel objectPropertyPanel;
-	private OWLIndividualSelectorPanel individualSelectorPanel;
+	private AbstractSelectorPanel individualSelectorPanel;
 
     private OWLObjectProperty objectProperty;
 
-    public SKOSObjectPropertyIndividualPairEditor(OWLEditorKit owlEditorKit, OWLObjectProperty property) {
+    public SKOSObjectPropertyIndividualPairEditor(OWLEditorKit owlEditorKit, OWLObjectProperty property, AbstractSelectorPanel panel) {
 		this.objectProperty = property;
         this.editorPanel = new JPanel(new BorderLayout());
 //		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 //		this.objectPropertyPanel = new OWLObjectPropertySelectorPanel(
 //				owlEditorKit);
 //		splitPane.setLeftComponent(this.objectPropertyPanel);
-		this.individualSelectorPanel = new OWLIndividualSelectorPanel(
-				owlEditorKit, ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.individualSelectorPanel = panel;
 //		splitPane.setRightComponent(this.individualSelectorPanel);
 		this.editorPanel.add(individualSelectorPanel, BorderLayout.CENTER);
 	}
@@ -75,7 +74,7 @@ public class SKOSObjectPropertyIndividualPairEditor extends
 	}
 
 	public OWLObjectPropertyIndividualPair getEditedObject() {
-		return new OWLObjectPropertyIndividualPair(objectProperty, this.individualSelectorPanel.getSelectedObject());
+		return new OWLObjectPropertyIndividualPair(objectProperty, (OWLIndividual) this.individualSelectorPanel.getSelectedObject());
 	}
 
 //	@Override
