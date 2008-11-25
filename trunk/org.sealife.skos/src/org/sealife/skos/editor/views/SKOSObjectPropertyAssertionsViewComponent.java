@@ -40,11 +40,11 @@ import java.awt.*;
 public class SKOSObjectPropertyAssertionsViewComponent extends AbstractOWLIndividualViewComponent {
 
     private OWLFrameList2<OWLIndividual> list;
-
+    private SKOSObjectPropertyAssertionsFrame frame;
 
     public void initialiseIndividualsView() throws Exception {
         list = new OWLFrameList2<OWLIndividual>(getOWLEditorKit(),
-                                                new SKOSObjectPropertyAssertionsFrame(getOWLEditorKit()));
+                                                frame = new SKOSObjectPropertyAssertionsFrame(getOWLEditorKit()));
         setLayout(new BorderLayout());
         add(new JScrollPane(list));
         OWLFrameListRenderer renderer = new OWLFrameListRenderer(getOWLEditorKit());
@@ -55,6 +55,7 @@ public class SKOSObjectPropertyAssertionsViewComponent extends AbstractOWLIndivi
 
     public void disposeView() {
         list.dispose();
+        frame.dispose();
     }
 
 

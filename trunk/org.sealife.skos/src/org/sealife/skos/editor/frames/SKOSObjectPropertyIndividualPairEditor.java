@@ -74,7 +74,9 @@ public class SKOSObjectPropertyIndividualPairEditor extends
 	}
 
 	public OWLObjectPropertyIndividualPair getEditedObject() {
-		return new OWLObjectPropertyIndividualPair(objectProperty, (OWLIndividual) this.individualSelectorPanel.getSelectedObject());
+        OWLObjectPropertyIndividualPair pair = new OWLObjectPropertyIndividualPair(objectProperty, (OWLIndividual) this.individualSelectorPanel.getSelectedObject());
+        this.individualSelectorPanel.dispose();
+        return pair;
 	}
 
 //	@Override
@@ -94,6 +96,6 @@ public class SKOSObjectPropertyIndividualPairEditor extends
 
 	public void dispose() {
 //		this.objectPropertyPanel.dispose();
-		this.individualSelectorPanel.dispose();
+        this.individualSelectorPanel.dispose();
 	}
 }
