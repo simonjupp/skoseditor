@@ -188,7 +188,7 @@ public class SKOSConceptSchemeListViewComponent extends
 
 	@Override
 	public void disposeView() {
-		this.getOWLModelManager().removeOntologyChangeListener(this.listener);
+        this.getOWLModelManager().removeOntologyChangeListener(this.listener);
 		this.getOWLModelManager().removeListener(this.modelManagerListener);
 	}
 
@@ -302,7 +302,7 @@ public class SKOSConceptSchemeListViewComponent extends
 
 		@Override
 		public void dispose() {
-		}
+        }
 	}
 
 	public void addChangeListener(ChangeListener listener) {

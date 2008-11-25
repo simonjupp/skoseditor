@@ -154,4 +154,6 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
             reset();
         }
     }
+
+
 }
