@@ -11,9 +11,14 @@ Protege 4 (alpha) is an editor for OWL ontologies. It is being developed at The 
 
 = Download = 
 
-You will need the latest Alpha version of Protege 4. You can get this from the Stanford web site http://protege.stanford.edu/. This plugin is built to work with build Protege_4_Alpha_build_58 and above.
+You will need the latest beta build of Protege 4. You can get this from the Stanford web site http://protege.stanford.edu/. 
 
 Next download the jar folder from this site and place it in the plugins directory.  And thats it!
+
+Once the plugin is installed there is a set of built operators that allow you to create new SKOS vocabularies, if you want access to the full SKOS data model you need to load it from the web. You can do this by selecting the "Load SKOS data model" option from the SKOSEd menu. If this doesn't work you can always load the SKOS datamodel as an OWL ontology from a file using the load options from the "File" menu. 
+
+ 
+
 
 = Feedback = 
 
