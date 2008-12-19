@@ -6,7 +6,6 @@ import org.protege.editor.owl.ui.renderer.OWLEntityRendererImpl;
 import org.semanticweb.owl.model.OWLDataProperty;
 import uk.ac.manchester.cs.owl.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.OWLDataPropertyImpl;
-import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -192,7 +191,7 @@ public class SKOSRendererPreferences {
         List<String> values = getPreferences().getStringList(SKOSLABELS, defaultValues);
 
         if (values.equals(defaultValues)){
-              dataProperties.add(new OWLDataPropertyImpl(new OWLDataFactoryImpl(), SKOSRDFVocabulary.PREFLABEL.getURI()));
+              dataProperties.add(new OWLDataPropertyImpl(new OWLDataFactoryImpl(), SKOSVocabulary.PREFLABEL.getURI()));
 //            annotationURIS.add(OWLRDFVocabulary.RDFS_LABEL.getURI());
 //            annotationURIS.add(URI.create("http://www.w3.org/2004/02/skos/core#prefLabel"));
         }
