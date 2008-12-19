@@ -1,6 +1,4 @@
-package org.sealife.skos;
-
-import java.net.URI;
+package org.sealife.skos.editor.views;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -24,28 +22,14 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Simon Jupp<br>
- * The University Of Manchester<br>
+ * Date: Nov 28, 2008<br>
+ * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-May-2007<br><br>
  */
-public class SKOSVocabulary {
+public class SKOSCollectionListViewComponent extends SKOSEntityListViewComponent{
 
-
-    public static String NAMESPACE = "http://www.w3.org/2004/02/skos/core#";
-    public static URI PREFLABEL = URI.create(NAMESPACE + "prefLabel");
-    public static URI ALTLABEL = URI.create(NAMESPACE + "altLabel");
-    public static URI HIDDENLABEL = URI.create(NAMESPACE + "hiddenLabel");
-    public static URI BROADER = URI.create(NAMESPACE + "broader");
-    public static URI NARROWER = URI.create(NAMESPACE + "narrower");
-    public static URI INSCHEME = URI.create(NAMESPACE + "inScheme");
-    public static URI CONCEPT = URI.create(NAMESPACE + "Concept");
-    public static URI CONCEPTSCHEME = URI.create(NAMESPACE + "ConceptScheme");
-
-
-    public SKOSVocabulary(String s) {
-    }
+    
 
 }

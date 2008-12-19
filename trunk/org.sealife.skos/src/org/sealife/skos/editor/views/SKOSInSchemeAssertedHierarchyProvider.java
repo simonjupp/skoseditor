@@ -138,11 +138,11 @@ public class SKOSInSchemeAssertedHierarchyProvider extends AbstractSKOSHierarchy
     }
 
     protected Set<OWLObjectProperty> loadBroaderProps() {
-        broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
+        broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()));
         return broaderProperties;
     }
     protected Set<OWLObjectProperty> loadNarrowerProps() {
-        narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
+        narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getURI()));
         return narrowerProperties;
     }
 

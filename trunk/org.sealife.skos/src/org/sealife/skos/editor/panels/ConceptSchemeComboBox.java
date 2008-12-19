@@ -56,9 +56,8 @@ public class ConceptSchemeComboBox {
         });
 
         JComboBox schemaBox = new JComboBox(sorted.toArray());
-
+        schemaBox.setRenderer(new OWLCellRendererSimple(owlEditorKit));
         if(!getConceptSchemes(owlEditorKit).isEmpty()) {
-            schemaBox.setRenderer(new OWLCellRendererSimple(owlEditorKit));
             schemaBox.setSelectedIndex(0);
         }
 

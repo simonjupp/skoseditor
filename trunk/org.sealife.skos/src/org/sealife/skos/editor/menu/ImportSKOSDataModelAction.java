@@ -1,8 +1,9 @@
 package org.sealife.skos.editor.menu;
 
+import org.protege.editor.owl.model.event.EventType;
 import org.protege.editor.owl.ui.action.ProtegeOWLAction;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyManager;
+import org.semanticweb.owl.model.*;
+import org.semanticweb.owl.util.SimpleURIMapper;
 
 import java.awt.event.ActionEvent;
 import java.net.URI;
@@ -40,18 +41,64 @@ public class ImportSKOSDataModelAction extends ProtegeOWLAction {
     public void actionPerformed(ActionEvent actionEvent) {
 
         try {
-//            ClassLoader loader = SKOSIcons.class.getClassLoader();
-//            URL url = loader.getResource("skos-core-2004.owl");
-////            URI uri  = ClassLoader.class.getResource().toURI();
-//            System.err.println("URI: " + url.toString());
+
+            URI core = URI.create("http://www.w3.org/2004/02/skos/core");
+            URI skos = URI.create("http://www.w3.org/2006/07/SWD/SKOS/reference/20081001/skos-dl.rdf");
 
             OWLOntologyManager man = getOWLModelManager().getOWLOntologyManager();
+
+            man.addURIMapper(new SimpleURIMapper(core, skos));
+
+
+            for (OWLOntology onto : man.getOntologies()) {
+                OWLImportsDeclaration ax = man.getOWLDataFactory().getOWLImportsDeclarationAxiom(onto, core);
+                man.applyChange(new AddAxiom(onto, ax));
+                man.makeLoadImportRequest(ax);
+            }
+
+            getOWLModelManager().fireEvent(EventType.ONTOLOGY_LOADED);
+            getOWLModelManager().rebuildOWLObjectPropertyHierarchy();
+
 //            man.addURIMapper(new SimpleURIMapper(URI.create("http://www.w3.org/2004/02/skos/core"), URI.create("http://www.cs.man.ac.uk/~sjupp/skos/skos-core-2004.owl")));
-            getOWLModelManager().loadOntology(URI.create("http://www.w3.org/2004/02/skos/core"));
-          
+//            getOWLModelManager().loadOntology(URI.create("http://www.w3.org/2004/02/skos/core"));
+
+//            OWLOntologyInputSource localSKOS = new OWLOntologyInputSource () {
+//
+//
+//                public boolean isReaderAvailable() {
+//                    return false;
+//                }
+//
+//                public Reader getReader() {
+//                    return null;
+//                }
+//
+//                public boolean isInputStreamAvailable() {
+//                    return true;
+//                }
+//
+//                public InputStream getInputStream() {
+//                    ClassLoader loader = ImportSKOSDataModelAction.class.getClassLoader();
+//                    InputStream is = loader.getResourceAsStream("skos-core-2004.owl");
+//
+//                    BufferedInputStream bs = new BufferedInputStream(is);
+//                    System.err.println(bs.toString());
+//
+//                    return bs;
+//                }
+//
+//                public URI getPhysicalURI() {
+//                    return URI.create("http://www.w3.org/2004/02/skos/core");
+//                }
+//            };
+//
+//            man.loadOntology(localSKOS);
+
+        } catch (OWLOntologyChangeException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (OWLOntologyCreationException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } 
+        }
 
     }
 

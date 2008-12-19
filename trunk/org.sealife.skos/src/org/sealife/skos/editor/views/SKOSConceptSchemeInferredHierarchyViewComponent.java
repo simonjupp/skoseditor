@@ -75,7 +75,7 @@ public class SKOSConceptSchemeInferredHierarchyViewComponent extends AbstractHie
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>(10);
 
         for (OWLOntology onto  : getOWLEditorKit().getModelManager().getOntologies()) {
-            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME));
+            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME.getURI()));
             for (OWLClassAssertionAxiom axiom : axioms) {
                 inds.add(axiom.getIndividual());
             }

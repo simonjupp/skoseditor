@@ -121,12 +121,20 @@
 
     <extension id="importSKOS"
                point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Load SKOS Ontology (2004)"/>
+        <name value="Import SKOS Ontology (20081001)"/>
         <class value="org.sealife.skos.editor.menu.ImportSKOSDataModelAction"/>
         <path value="org.sealife.skos.menu.SKOSMenu/SlotA-B"/>
         <editorKitId value="OWLEditorKit"/>
     </extension>
 
+        <!-- Create Collection -->
+    <extension id="createCollection"
+               point="org.protege.editor.core.application.EditorKitMenuAction">
+        <name value="Create Collection..."/>
+        <class value="org.sealife.skos.editor.menu.CreateCollection"/>
+        <path value="org.sealife.skos.menu.SKOSMenu/SlotB-BB"/>
+        <editorKitId value="OWLEditorKit"/>
+    </extension>
 
     <!-- create label relation -->
     <!--<extension id="CreateLabelRel"-->

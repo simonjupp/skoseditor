@@ -1,6 +1,8 @@
 package org.sealife.skos.editor;
 
 import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -24,28 +26,120 @@ import java.net.URI;
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 /**
  * Author: Simon Jupp<br>
- * The University Of Manchester<br>
+ * Date: Dec 19, 2008<br>
+ * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-May-2007<br><br>
  */
-public class SKOSVocabulary {
+public enum SKOSVocabulary {
 
+    LABELRELATED("labelRelated"),
 
-    public static String NAMESPACE = "http://www.w3.org/2004/02/skos/core#";
-    public static URI PREFLABEL = URI.create(NAMESPACE + "prefLabel");
-    public static URI ALTLABEL = URI.create(NAMESPACE + "altLabel");
-    public static URI HIDDENLABEL = URI.create(NAMESPACE + "hiddenLabel");
-    public static URI BROADER = URI.create(NAMESPACE + "broader");
-    public static URI NARROWER = URI.create(NAMESPACE + "narrower");
-    public static URI INSCHEME = URI.create(NAMESPACE + "inScheme");
-    public static URI CONCEPT = URI.create(NAMESPACE + "Concept");
-    public static URI CONCEPTSCHEME = URI.create(NAMESPACE + "ConceptScheme");
+    MEMBER("member"),
 
+    MEMBERLIST("memberList"),
 
-    public SKOSVocabulary(String s) {
+    MAPPINGRELATION("mappingRelation"),
+
+    BROADMATCH("broadMatch"),
+
+    NARROWMATCH("narrowMatch"),
+
+    RELATEDMATCH("relatedMatch"),
+
+    EXACTMATCH("exactMatch"),
+
+    BROADER("broader"),
+
+    NARROWER("narrower"),
+
+    BROADERTRANS("broaderTransitive"),
+
+    NARROWERTRANS("narrowerTransitive"),
+
+    RELATED("related"),
+
+    HASTOPCONCEPT("hasTopConcept"),
+
+    SEMANTICRELATION("semanticRelation"),
+
+    CONCEPT("Concept"),
+
+    LABELRELATION("LabelRelation"),
+
+    SEELABELRELATION("seeLabelRelation"),
+
+    COLLECTION("Collection"),
+
+    CONCEPTSCHEME("ConceptScheme"),
+
+    TOPCONCEPTOF("topConceptOf"),
+
+    INSCHEME("inScheme"),
+
+    CLOSEMATCH("closeMatch"),
+
+    DOCUMENT("Document"),
+
+    IMAGE("Image"),
+
+    ORDEREDCOLLECTION("OrderedCollection"),
+
+    COLLECTABLEPROPERTY("CollectableProperty"),
+
+    RESOURCE("Resource"),
+
+    PREFLABEL("prefLabel"),
+
+    ALTLABEL("altLabel"),
+
+    COMMENT("comment"),
+
+    EXAMPLE("example"),
+
+    NOTE("note"),
+
+    NOTATION("notation"),
+
+    SCOPENOTE("scopeNote"),
+
+    HIDDENLABEL("hiddenLabel"),
+
+    EDITORIALNOTE("editorialNote"),
+
+    HISTORYNOTE("historyNote"),
+
+    DEFINITION("definition"),
+
+    CHANGENOTE("changeNote");
+
+    public static final Set<URI> ALL_URIS;
+
+    static {
+        ALL_URIS = new HashSet<URI>();
+        for(SKOSVocabulary v : values()) {
+            ALL_URIS.add(v.getURI());
+        }
     }
 
-}
+    private String localName;
+
+    private String namespace = "http://www.w3.org/2004/02/skos/";
+
+    private URI uri;
+
+    SKOSVocabulary(String localname) {
+        this.localName = localname;
+        this.uri = URI.create(namespace + localname);
+    }
+
+
+    public String getLocalName() {
+        return localName;
+    }
+
+
+    public URI getURI() {
+        return uri;
+    }}
