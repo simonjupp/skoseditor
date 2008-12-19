@@ -58,7 +58,7 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
         this.reasoner = reasoner;
         conceptsToView = new HashSet<OWLIndividual>(10000);
 
-        skosConcept = modelManager.getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT);
+        skosConcept = modelManager.getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT.getURI());
     }
 
     public void reasonerUpdated () {
@@ -121,11 +121,11 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     protected Set<OWLObjectProperty> loadBroaderProps() {
         Set<Set<OWLObjectProperty>> broaderProperty = new HashSet<Set<OWLObjectProperty>>();
         try {
-            broaderProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
+            broaderProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()));
         } catch (OWLReasonerException e) {
             e.printStackTrace();
         }
-        broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
+        broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()));
 
         for (Set<OWLObjectProperty> pb1 : broaderProperty) {
             for (OWLObjectProperty pb1a : pb1) {
@@ -138,11 +138,11 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     protected Set<OWLObjectProperty> loadNarrowerProps() {
         Set<Set<OWLObjectProperty>> narrowerProperty = new HashSet<Set<OWLObjectProperty>>();;
         try {
-            narrowerProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
+            narrowerProperty = reasoner.getDescendantProperties(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getURI()));
         } catch (OWLReasonerException e) {
             e.printStackTrace();
         }
-        narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
+        narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getURI()));
 
         for (Set<OWLObjectProperty> pb1 : narrowerProperty) {
             for (OWLObjectProperty pb1a : pb1) {

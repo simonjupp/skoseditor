@@ -6,9 +6,8 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.tree.OWLModelManagerTree;
 import org.sealife.skos.editor.SKOSVocabulary;
 import org.sealife.skos.editor.panels.ConceptSchemeComboBox;
-import org.semanticweb.owl.model.OWLClassAssertionAxiom;
-import org.semanticweb.owl.model.OWLIndividual;
-import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owl.model.*;
+import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -50,6 +49,7 @@ import java.util.Set;
 public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHierarchyViewComponent {
 
     private OWLModelManagerListener modelListener;
+    private OWLOntologyChangeListener ontologyListener;
 
     private JComboBox schemaBox;
 
@@ -74,7 +74,7 @@ public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHie
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>(10);
 
         for (OWLOntology onto  : getOWLEditorKit().getModelManager().getOntologies()) {
-            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME));
+            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME.getURI()));
             for (OWLClassAssertionAxiom axiom : axioms) {
                 inds.add(axiom.getIndividual());
             }
@@ -110,6 +110,23 @@ public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHie
             }
         });
 
+        getOWLModelManager().addOntologyChangeListener(ontologyListener = new OWLOntologyChangeListener() {
+            public void ontologiesChanged(java.util.List<? extends OWLOntologyChange> list) throws OWLException {
+
+                for (OWLOntologyChange change : list) {
+
+                    if (change instanceof AddAxiom) {
+                        AddAxiom addax = (AddAxiom) change;
+                        if (addax.getAxiom() instanceof OWLClassAssertionAxiom) {
+                            OWLClassAssertionAxiom classAx = (OWLClassAssertionAxiom) addax.getAxiom();
+                            if (classAx.getDescription().equals(getOWLDataFactory().getOWLClass(SKOSRDFVocabulary.CONCEPTSCHEME.getURI()))) {
+                                schemaBox.addItem(classAx.getIndividual());
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         getOWLModelManager().addListener(modelListener = new OWLModelManagerListener() {
 
@@ -130,6 +147,7 @@ public class SKOSConceptSchemeAssertedHierarchyViewComponent extends AbstractHie
 
 
     public void disposeView() {
+        getOWLModelManager().removeOntologyChangeListener(ontologyListener);
         getOWLModelManager().removeListener(modelListener);
         super.disposeView();    //To change body of overridden methods use File | Settings | File Templates.
     }

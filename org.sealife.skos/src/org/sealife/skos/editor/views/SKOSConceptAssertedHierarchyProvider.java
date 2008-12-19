@@ -63,11 +63,11 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
     }
 
     protected Set<OWLObjectProperty> loadBroaderProps() {
-        return Collections.singleton(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER));
+        return Collections.singleton(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()));
     }
 
     protected Set<OWLObjectProperty> loadNarrowerProps() {
-        return Collections.singleton(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER));
+        return Collections.singleton(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getURI()));
     }
 
     public void setOntologies(Set<OWLOntology> ontologies) {
@@ -76,7 +76,7 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
         this.ontologies.addAll(ontologies);
         this.conceptsToView.clear();
 
-        skosConcept = getManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT);
+        skosConcept = getManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT.getURI());
 
         for (OWLOntology ont : ontologies) {
             try {

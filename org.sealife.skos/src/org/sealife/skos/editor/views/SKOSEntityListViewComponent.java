@@ -9,16 +9,16 @@ import org.protege.editor.owl.model.event.OWLModelManagerListener;
 import org.protege.editor.owl.ui.OWLIcons;
 import org.protege.editor.owl.ui.list.OWLObjectList;
 import org.protege.editor.owl.ui.view.*;
+import org.sealife.skos.editor.panels.SKOSEntityCreationPanel;
 import org.semanticweb.owl.model.*;
 import org.semanticweb.owl.util.OWLEntityCollector;
 import org.semanticweb.owl.util.OWLEntityRemover;
 import org.semanticweb.owl.util.OWLEntitySetProvider;
-import org.semanticweb.skos.SKOSConceptScheme;
+import org.semanticweb.skos.SKOSConcept;
 import org.semanticweb.skos.SKOSDataFactory;
 import org.semanticweb.skos.SKOSDataset;
 import org.semanticweb.skosapibinding.SKOSManager;
 import org.semanticweb.skosapibinding.SKOStoOWLConverter;
-import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -63,7 +63,7 @@ import java.util.TreeSet;
  * <br>
  * <p/> This definitely needs a rethink - it is a totally inefficient hack!
  */
-public class SKOSConceptSchemeListViewComponent extends
+public class SKOSEntityListViewComponent extends
         AbstractOWLIndividualViewComponent implements Findable<OWLIndividual>,
         Deleteable, CreateNewTarget, RefreshableComponent {
 	private OWLObjectList<OWLIndividual> list;
@@ -82,61 +82,63 @@ public class SKOSConceptSchemeListViewComponent extends
         skosManager = new SKOSManager(getOWLEditorKit().getModelManager().getOWLOntologyManager());
         skosDataFactory = skosManager.getSKOSDataFactory();
 
-        this.list = new OWLObjectList<OWLIndividual>(this.getOWLEditorKit());
-		this.list.setSelectionMode(this.selectionMode);
-		this.setLayout(new BorderLayout());
-		this.add(new JScrollPane(this.list));
-		this.list.addListSelectionListener(new ListSelectionListener() {
+        list = new OWLObjectList<OWLIndividual>(this.getOWLEditorKit());
+		list.setSelectionMode(this.selectionMode);
+		setLayout(new BorderLayout());
+		add(new JScrollPane(this.list));
+		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
-					if (SKOSConceptSchemeListViewComponent.this.list
+					if (SKOSEntityListViewComponent.this.list
 							.getSelectedValue() != null) {
-						SKOSConceptSchemeListViewComponent.this
-								.setSelectedEntity((OWLIndividual) SKOSConceptSchemeListViewComponent.this.list
+						SKOSEntityListViewComponent.this
+								.setSelectedEntity((OWLIndividual) SKOSEntityListViewComponent.this.list
 										.getSelectedValue());
 					}
-					SKOSConceptSchemeListViewComponent.this.changeListenerMediator
-							.fireStateChanged(SKOSConceptSchemeListViewComponent.this);
+					SKOSEntityListViewComponent.this.changeListenerMediator
+							.fireStateChanged(SKOSEntityListViewComponent.this);
 				}
 			}
 		});
-		this.list.addMouseListener(new MouseAdapter() {
+
+
+        list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				SKOSConceptSchemeListViewComponent.this
-						.setSelectedEntity((OWLIndividual) SKOSConceptSchemeListViewComponent.this.list
+				SKOSEntityListViewComponent.this
+						.setSelectedEntity((OWLIndividual) SKOSEntityListViewComponent.this.list
 								.getSelectedValue());
 			}
 		});
 		this.listener = new OWLOntologyChangeListener() {
 			public void ontologiesChanged(
 					java.util.List<? extends OWLOntologyChange> changes) {
-				SKOSConceptSchemeListViewComponent.this.processChanges(changes);
+				SKOSEntityListViewComponent.this.processChanges(changes);
 			}
 		};
-		this.getOWLModelManager().addOntologyChangeListener(this.listener);
+		getOWLModelManager().addOntologyChangeListener(listener);
 
         setupActions();
 		this.changeListenerMediator = new ChangeListenerMediator();
 		this.individualsInList = new TreeSet<OWLIndividual>(getOWLModelManager().getOWLObjectComparator());
 		this.refill();
-		this.modelManagerListener = new OWLModelManagerListener() {
+		modelManagerListener = new OWLModelManagerListener() {
 			public void handleChange(OWLModelManagerChangeEvent event) {
 				if (event.isType(EventType.ACTIVE_ONTOLOGY_CHANGED)) {
-					SKOSConceptSchemeListViewComponent.this.refill();
+					SKOSEntityListViewComponent.this.refill();
 				}
 			}
 		};
-		this.getOWLModelManager().addListener(this.modelManagerListener);
+		getOWLModelManager().addListener(modelManagerListener);
 	}
 
 
     protected void setupActions() {
-        this.addAction(new SKOSConceptSchemeListViewComponent.AddIndividualAction(), "A", "A");
+        this.addAction(new SKOSEntityListViewComponent.AddIndividualAction(), "A", "A");
 		this.addAction(new DeleteIndividualAction(this.getOWLEditorKit(),
 				new OWLEntitySetProvider<OWLIndividual>() {
 					public Set<OWLIndividual> getEntities() {
-						return SKOSConceptSchemeListViewComponent.this
+						return SKOSEntityListViewComponent.this
 								.getSelectedIndividuals();
 					}
 				}), "B", "A");
@@ -155,7 +157,7 @@ public class SKOSConceptSchemeListViewComponent extends
         SKOStoOWLConverter conv = new SKOStoOWLConverter();
 
         for (SKOSDataset dataset :  skosManager.getSKOSDataSets()) {
-            for (SKOSConceptScheme con : dataset.getSKOSConceptSchemes()) {
+            for (SKOSConcept con : dataset.getSKOSConcepts()) {
                 this.individualsInList.add(conv.getAsOWLIndiviudal(con));
             }
 		}
@@ -188,9 +190,10 @@ public class SKOSConceptSchemeListViewComponent extends
 
 	@Override
 	public void disposeView() {
-        this.getOWLModelManager().removeOntologyChangeListener(this.listener);
-		this.getOWLModelManager().removeListener(this.modelManagerListener);
-	}
+
+        getOWLModelManager().removeOntologyChangeListener(listener);
+		getOWLModelManager().removeListener(modelManagerListener);
+    }
 
 	public OWLIndividual getSelectedIndividual() {
 		return (OWLIndividual) this.list.getSelectedValue();
@@ -222,7 +225,7 @@ public class SKOSConceptSchemeListViewComponent extends
 			if (ent instanceof OWLIndividual) {
 
                 for (SKOSDataset dataset: skosManager.getSKOSDataSets()) {
-                    for (SKOSConceptScheme con : dataset.getSKOSConceptSchemes()) {
+                    for (SKOSConcept con : dataset.getSKOSConcepts()) {
                         if (con.getURI().equals(ent.getURI())) {
                             if (this.individualsInList.add((OWLIndividual) ent)) {
                                 mod = true;
@@ -256,26 +259,22 @@ public class SKOSConceptSchemeListViewComponent extends
 
 	private void addIndividual() {
 
-        OWLEntityCreationSet<OWLIndividual> set = this.getOWLWorkspace().createOWLIndividual();
+        OWLEntityCreationSet<OWLIndividual> set = SKOSEntityCreationPanel.showDialog(getOWLEditorKit(), "Please enter a concept name", OWLIndividual.class);
+
+//        OWLEntityCreationSet<OWLIndividual> set = this.getOWLWorkspace().createOWLIndividual();
 		if (set == null) {
 			return;
 		}
 		java.util.List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 		changes.addAll(set.getOntologyChanges());
-        OWLClass conceptScheme = getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClass(SKOSRDFVocabulary.CONCEPTSCHEME.getURI());
-        OWLAxiom ax = getOWLEditorKit().getModelManager().getOWLDataFactory().getOWLClassAssertionAxiom(set.getOWLEntity(), conceptScheme);
-        changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(), ax));
-        
-        this.getOWLModelManager().applyChanges(changes);
+		this.getOWLModelManager().applyChanges(changes);
 		OWLIndividual ind = set.getOWLEntity();
 		if (ind != null) {
 			this.list.setSelectedValue(ind, true);
 			if (!this.isPinned()) {
-                this.getOWLWorkspace().getOWLSelectionModel()
-                        .setSelectedEntity(ind);
-
-
-            }
+				this.getOWLWorkspace().getOWLSelectionModel()
+						.setSelectedEntity(ind);
+			}
 		}
 	}
 
@@ -295,16 +294,16 @@ public class SKOSConceptSchemeListViewComponent extends
 
     private class AddIndividualAction extends DisposableAction {
 		public AddIndividualAction() {
-			super("Add concept scheme", OWLIcons.getIcon("individual.add.png"));
+			super("Add concept", OWLIcons.getIcon("individual.add.png"));
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			SKOSConceptSchemeListViewComponent.this.addIndividual();
+			SKOSEntityListViewComponent.this.addIndividual();
 		}
 
 		@Override
 		public void dispose() {
-        }
+		}
 	}
 
 	public void addChangeListener(ChangeListener listener) {

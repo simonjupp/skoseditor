@@ -82,7 +82,7 @@ public class SKOSEntityCreationPanel2 extends JPanel {
         Set<OWLIndividual> inds = new HashSet();
 
         for (OWLOntology onto  : owlEditorKit.getModelManager().getOntologies()) {
-            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME));
+            Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME.getURI()));
             Iterator it = axioms.iterator();
             while (it.hasNext()) {
                 OWLClassAssertionAxiom axiom = (OWLClassAssertionAxiom) it.next();
@@ -96,7 +96,7 @@ public class SKOSEntityCreationPanel2 extends JPanel {
     public OWLIndividual getCurrentConceptScheme () {
 
         OWLOntology onto = owlEditorKit.getModelManager().getActiveOntology();
-        Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME));
+        Set<OWLClassAssertionAxiom> axioms = onto.getClassAssertionAxioms(owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPTSCHEME.getURI()));
         Iterator it = axioms.iterator();
         OWLClassAssertionAxiom ax = (OWLClassAssertionAxiom) it.next();
         return ax.getIndividual();

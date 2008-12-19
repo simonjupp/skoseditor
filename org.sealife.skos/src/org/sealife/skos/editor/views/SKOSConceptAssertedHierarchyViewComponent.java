@@ -142,10 +142,10 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
             public void move(OWLIndividual child, OWLIndividual fromParent, OWLIndividual toParent) {
                 List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
                 changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(),
-                                         getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER),
+                                         getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()),
                                                     toParent)));
                 changes.add(new RemoveAxiom(getOWLModelManager().getActiveOntology(),
-                                            getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER),
+                                            getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()),
                                                                                                          fromParent)));
                 getOWLModelManager().applyChanges(changes);
             }
@@ -153,7 +153,7 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
             public void add(OWLIndividual child, OWLIndividual parent) {
                 List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
                 changes.add(new AddAxiom(getOWLModelManager().getActiveOntology(),
-                                         getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER),
+                                         getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(child, getOWLModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getURI()),
                                                     parent)));
 
                 getOWLModelManager().applyChanges(changes);
@@ -232,6 +232,7 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
             OWLAxiom ax = getOWLModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(selectedInd, pair.getProperty(), pair.getIndividual());
             this.getOWLModelManager().applyChange(new AddAxiom(getOWLModelManager().getActiveOntology(), ax));
         }
+        editor.dispose();
     }
 
     private void addRelatedDataProperty() {
@@ -253,6 +254,7 @@ public class SKOSConceptAssertedHierarchyViewComponent extends AbstractHierarchy
             OWLAxiom ax = getOWLModelManager().getOWLDataFactory().getOWLDataPropertyAssertionAxiom(selectedInd, pair.getProperty(), pair.getConstant());
             this.getOWLModelManager().applyChange(new AddAxiom(getOWLModelManager().getActiveOntology(), ax));
         }
+        editor.dispose();
     }
 
 

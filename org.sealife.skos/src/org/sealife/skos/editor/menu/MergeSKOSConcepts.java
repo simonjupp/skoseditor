@@ -71,15 +71,15 @@ public class MergeSKOSConcepts extends FocusedComponentAction<SKOSConceptAsserte
 
                 OWLDataPropertyExpression prop = ax.getProperty();
 
-                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.PREFLABEL)) {
+                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.PREFLABEL.getURI())) {
                     axs.add(new RemoveAxiom(onto, ax));
                     labels.add(ax.getObject().getLiteral());
                 }
-                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.ALTLABEL)) {
+                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.ALTLABEL.getURI())) {
                     axs.add(new RemoveAxiom(onto, ax));
                     labels.add(ax.getObject().getLiteral());
                 }
-                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.HIDDENLABEL)) {
+                if (prop.asOWLDataProperty().getURI().equals(SKOSVocabulary.HIDDENLABEL.getURI())) {
                     axs.add(new RemoveAxiom(onto, ax));
                     labels.add(ax.getObject().getLiteral());
                 }
@@ -103,8 +103,8 @@ public class MergeSKOSConcepts extends FocusedComponentAction<SKOSConceptAsserte
         // now add the remaining labels
 
         for (String lab : labels) {
-            OWLDataPropertyAssertionAxiom ax = factory.getOWLDataPropertyAssertionAxiom(mainInd, factory.getOWLDataProperty(SKOSVocabulary.ALTLABEL), factory.getOWLUntypedConstant(lab));
-            OWLDataPropertyAssertionAxiom ax1 = factory.getOWLDataPropertyAssertionAxiom(mainInd, factory.getOWLDataProperty(SKOSVocabulary.PREFLABEL), factory.getOWLUntypedConstant(term));
+            OWLDataPropertyAssertionAxiom ax = factory.getOWLDataPropertyAssertionAxiom(mainInd, factory.getOWLDataProperty(SKOSVocabulary.ALTLABEL.getURI()), factory.getOWLUntypedConstant(lab));
+            OWLDataPropertyAssertionAxiom ax1 = factory.getOWLDataPropertyAssertionAxiom(mainInd, factory.getOWLDataProperty(SKOSVocabulary.PREFLABEL.getURI()), factory.getOWLUntypedConstant(term));
             AddAxiom addAx = new AddAxiom(onto, ax);
             AddAxiom addAx1 = new AddAxiom(onto, ax1);
             getOWLModelManager().applyChange(addAx);
