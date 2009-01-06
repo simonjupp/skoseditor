@@ -81,6 +81,8 @@ public abstract class AbstractSKOSHierarchyProvider extends AbstractOWLObjectHie
         broaderProperties = new HashSet<OWLObjectProperty>(10);
         narrowerProperties = new HashSet<OWLObjectProperty>(10);
 
+        
+
     }
 
     protected AbstractSKOSHierarchyProvider(OWLOntologyManager owlOntologyManager) {

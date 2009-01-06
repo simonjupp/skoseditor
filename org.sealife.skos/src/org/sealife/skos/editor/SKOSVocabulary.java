@@ -125,7 +125,7 @@ public enum SKOSVocabulary {
 
     private String localName;
 
-    private String namespace = "http://www.w3.org/2004/02/skos/";
+    private String namespace = "http://www.w3.org/2004/02/skos/core#";
 
     private URI uri;
 
