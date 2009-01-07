@@ -13,7 +13,7 @@ Bundle-ClassPath: .,
 Update-Url: http://skoseditor.googlecode.com/svn/trunk/org.sealife.skos/skos-update.properties    
 Import-Package: org.osgi.framework,
  org.apache.log4j
-Bundle-Version: 1.0.3
+Bundle-Version: 1.0.4
 Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
 Require-Bundle: org.eclipse.equinox.registry,
  org.eclipse.equinox.common,
