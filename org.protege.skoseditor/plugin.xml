@@ -3,18 +3,18 @@
 <plugin>
 
     <!-- We require the core protege application plugin -->
-<!--    <requires>
-        <import plugin-id="org.protege.editor.core.application"/>
-        <import plugin-id="org.protege.editor.owl"/>
-    </requires>
+    <!--<requires>-->
+        <!--<import plugin-id="org.protege.editor.core.application"/>-->
+        <!--<import plugin-id="org.protege.editor.owl"/>-->
+    <!--</requires>-->
 
-    <runtime>
-        <library id="skosviews" path="classes/" type="code">
-            <export prefix="*"/>
-        </library>
-        <library id="resources" path="resources/" type="resources"/>
-    </runtime>
--->
+    <!--<runtime>-->
+        <!--<library id="skosviews" path="classes/" type="code">-->
+            <!--<export prefix="*"/>-->
+        <!--</library>-->
+        <!--<library id="resources" path="resources/" type="resources"/>-->
+    <!--</runtime>-->
+
 
     <extension id="SKOSHierarchyViewComponent" point="org.protege.editor.core.application.ViewComponent">
         <label value="Asserted Concept Hierarchy"/>
@@ -96,15 +96,15 @@
         <defaultViewConfigFileName value="viewconfig-skostab.xml"/>
     </extension>
 
-   <extension
-         id="menu.SKOSMenu"
-         name="SKOSMenu"
-         point="org.protege.editor.core.application.EditorKitMenuAction">
-      <name value="SKOSEd"/>
-      <toolTip value="SKOS related functions"/>
-      <path value="/SlotK-A"/>
-      <editorKitId value="any"/>
-   </extension>
+   <!--<extension-->
+         <!--id="menu.SKOSMenu"-->
+         <!--name="SKOSMenu"-->
+         <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
+      <!--<name value="SKOSEd"/>-->
+      <!--<toolTip value="SKOS related functions"/>-->
+      <!--<path value="/SlotK-A"/>-->
+      <!--<editorKitId value="any"/>-->
+   <!--</extension>-->
 
 
 
@@ -119,40 +119,40 @@
 
     <!-- import SKOS data model -->
 
-    <extension id="importSKOS"
-               point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Import SKOS Ontology (20081001)"/>
-        <class value="org.sealife.skos.editor.menu.ImportSKOSDataModelAction"/>
-        <path value="org.sealife.skos.menu.SKOSMenu/SlotA-B"/>
-        <editorKitId value="OWLEditorKit"/>
-    </extension>
-
-        <!-- Create Collection -->
-    <extension id="createCollection"
-               point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Create Collection..."/>
-        <class value="org.sealife.skos.editor.menu.CreateCollection"/>
-        <path value="org.sealife.skos.menu.SKOSMenu/SlotB-BB"/>
-        <editorKitId value="OWLEditorKit"/>
-    </extension>
-
-    <!-- create label relation -->
-    <!--<extension id="CreateLabelRel"-->
+    <!--<extension id="importSKOS"-->
                <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
-        <!--<name value="Create Label Relation..."/>-->
-        <!--<class value="org.sealife.skos.editor.menu.CreateLabelRelationAction"/>-->
-        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotB-A"/>-->
+        <!--<name value="Import SKOS Ontology (20081001)"/>-->
+        <!--<class value="org.sealife.skos.editor.menu.ImportSKOSDataModelAction"/>-->
+        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotA-B"/>-->
         <!--<editorKitId value="OWLEditorKit"/>-->
     <!--</extension>-->
 
-    <!-- merge selected Conceepts -->
-    <extension id="MergeSKOSConcepts"
-               point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Merge selected Concepts"/>
-        <class value="org.sealife.skos.editor.menu.MergeSKOSConcepts"/>
-        <path value="org.sealife.skos.menu.SKOSMenu/SlotB-B"/>
-        <editorKitId value="OWLEditorKit"/>
-    </extension>
+        <!--&lt;!&ndash; Create Collection &ndash;&gt;-->
+    <!--<extension id="createCollection"-->
+               <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
+        <!--<name value="Create Collection..."/>-->
+        <!--<class value="org.sealife.skos.editor.menu.CreateCollection"/>-->
+        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotB-BB"/>-->
+        <!--<editorKitId value="OWLEditorKit"/>-->
+    <!--</extension>-->
+
+    <!--&lt;!&ndash; create label relation &ndash;&gt;-->
+    <!--&lt;!&ndash;<extension id="CreateLabelRel"&ndash;&gt;-->
+               <!--&lt;!&ndash;point="org.protege.editor.core.application.EditorKitMenuAction">&ndash;&gt;-->
+        <!--&lt;!&ndash;<name value="Create Label Relation..."/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<class value="org.sealife.skos.editor.menu.CreateLabelRelationAction"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<path value="org.sealife.skos.menu.SKOSMenu/SlotB-A"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<editorKitId value="OWLEditorKit"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</extension>&ndash;&gt;-->
+
+    <!--&lt;!&ndash; merge selected Conceepts &ndash;&gt;-->
+    <!--<extension id="MergeSKOSConcepts"-->
+               <!--point="org.protege.editor.core.application.EditorKitMenuAction">-->
+        <!--<name value="Merge selected Concepts"/>-->
+        <!--<class value="org.sealife.skos.editor.menu.MergeSKOSConcepts"/>-->
+        <!--<path value="org.sealife.skos.menu.SKOSMenu/SlotB-B"/>-->
+        <!--<editorKitId value="OWLEditorKit"/>-->
+    <!--</extension>-->
 
 
     <extension id="ui.preferences.skosrenderer"
