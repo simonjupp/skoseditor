@@ -1,0 +1,1515 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY skos2 "http://triplr.org/rdf/www.w3.org/2008/05/skos#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2004/02/skos#"
+     xml:base="http://www.w3.org/2004/02/skos"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:skos2="http://triplr.org/rdf/www.w3.org/2008/05/skos#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:skos="http://www.w3.org/2004/02/skos#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <owl:Ontology rdf:about="">
+        <dc:contributor>Dave Beckett</dc:contributor>
+        <dc:contributor>Nikki Rogers</dc:contributor>
+        <dc:description xml:lang="en"
+            >An RDF vocabulary for describing the basic structure and content of concept schemes such as thesauri, classification schemes, subject heading lists, taxonomies, &#39;folksonomies&#39;, other types of controlled vocabulary, and also concept schemes embedded in glossaries and terminologies.</dc:description>
+        <dc:contributor
+            >Participants in W3C&#39;s Semantic Web Deployment Working Group.</dc:contributor>
+        <dc:title xml:lang="en"
+            >SKOS Core Vocabulary</dc:title>
+        <dc:creator>Sean Bechhofer</dc:creator>
+        <dc:creator>Alistair Miles</dc:creator>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&dc;description"/>
+    <owl:AnnotationProperty rdf:about="&dc;creator"/>
+    <owl:AnnotationProperty rdf:about="&dc;date"/>
+    <owl:AnnotationProperty rdf:about="&dc;contributor"/>
+    <owl:AnnotationProperty rdf:about="&dc;title"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#label -->
+
+    <owl:ObjectProperty rdf:about="&rdfs;label">
+        <rdf:type rdf:resource="&owl;AnnotationProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#altLabel -->
+
+    <owl:ObjectProperty rdf:about="#altLabel">
+        <rdfs:subPropertyOf rdf:resource="&rdfs;label"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broadMatch -->
+
+    <owl:ObjectProperty rdf:about="#broadMatch">
+        <rdfs:label xml:lang="en">broader match</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#broader"/>
+        <rdfs:subPropertyOf rdf:resource="#mappingRelation"/>
+        <owl:inverseOf rdf:resource="#narrowMatch"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broader -->
+
+    <owl:ObjectProperty rdf:about="#broader">
+        <rdfs:label xml:lang="en">has broader</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >Broader concepts are typically rendered as parents in a concept hierarchy (tree).</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >By convention, skos:broader is only used to assert an immediate (i.e. direct) hierarchical link between two conceptual resources.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#broaderTransitive"/>
+        <owl:inverseOf rdf:resource="#narrower"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broaderTransitive -->
+
+    <owl:ObjectProperty rdf:about="#broaderTransitive">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en"
+            >broader transitive</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >By convention, skos:broaderTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application.</rdfs:comment>
+        <owl:inverseOf rdf:resource="#narrowerTransitive"/>
+        <rdfs:subPropertyOf rdf:resource="#semanticRelation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#changeNote -->
+
+    <owl:ObjectProperty rdf:about="#changeNote">
+        <rdfs:label xml:lang="en">change note</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#closeMatch -->
+
+    <owl:ObjectProperty rdf:about="#closeMatch">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label xml:lang="en">exact match</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#mappingRelation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#definition -->
+
+    <owl:ObjectProperty rdf:about="#definition">
+        <rdfs:label xml:lang="en">definition</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#editorialNote -->
+
+    <owl:ObjectProperty rdf:about="#editorialNote">
+        <rdfs:label xml:lang="en">editorial note</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#exactMatch -->
+
+    <owl:ObjectProperty rdf:about="#exactMatch">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">exact match</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >skos:exactMatch is disjoint with each of the properties skos:broadMatch and skos:relatedMatch.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#closeMatch"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#example -->
+
+    <owl:ObjectProperty rdf:about="#example">
+        <rdfs:label xml:lang="en">example</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#hasTopConcept -->
+
+    <owl:ObjectProperty rdf:about="#hasTopConcept">
+        <rdfs:label xml:lang="en">has top concept</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="#Concept"/>
+        <rdfs:domain rdf:resource="#ConceptScheme"/>
+        <owl:inverseOf rdf:resource="#topConceptOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#hiddenLabel -->
+
+    <owl:ObjectProperty rdf:about="#hiddenLabel">
+        <rdfs:subPropertyOf rdf:resource="&rdfs;label"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#historyNote -->
+
+    <owl:ObjectProperty rdf:about="#historyNote">
+        <rdfs:label xml:lang="en">history note</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#inScheme -->
+
+    <owl:ObjectProperty rdf:about="#inScheme">
+        <rdfs:label xml:lang="en">in scheme</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >A concept may be a member of more than one concept scheme.</rdfs:comment>
+        <rdfs:range rdf:resource="#ConceptScheme"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#mappingRelation -->
+
+    <owl:ObjectProperty rdf:about="#mappingRelation">
+        <rdfs:label xml:lang="en"
+            >mapping relation</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >These concept mapping relations mirror semantic relations, and the data model defined below is similar (with the exception of skos:exactMatch) to the data model defined for semantic relations. A distinct vocabulary is provided for concept mapping relations, to provide a convenient way to differentiate links within a concept scheme from links between concept schemes. However, this pattern of usage is not a formal requirement of the SKOS data model, and relies on informal definitions of best practice.</rdfs:comment>
+        <rdfs:domain rdf:resource="#Concept"/>
+        <rdfs:range rdf:resource="#Concept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#member -->
+
+    <owl:ObjectProperty rdf:about="#member">
+        <rdfs:label xml:lang="en">member</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#Collection"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#memberList -->
+
+    <owl:ObjectProperty rdf:about="#memberList">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">member list</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >For any resource, every item in the list given as the value of the skos:memberList property is also a value of the skos:member property.</rdfs:comment>
+        <rdfs:range rdf:resource="&rdf;List"/>
+        <rdfs:domain rdf:resource="#OrderedCollection"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrowMatch -->
+
+    <owl:ObjectProperty rdf:about="#narrowMatch">
+        <rdfs:label xml:lang="en">narrower match</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#mappingRelation"/>
+        <rdfs:subPropertyOf rdf:resource="#narrower"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrower -->
+
+    <owl:ObjectProperty rdf:about="#narrower">
+        <rdfs:label xml:lang="en">has narrower</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >By convention, skos:broader is only used to assert an immediate (i.e. direct) hierarchical link between two conceptual resources.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >Narrower concepts are typically rendered as children in a concept hierarchy (tree).</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#narrowerTransitive"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrowerTransitive -->
+
+    <owl:ObjectProperty rdf:about="#narrowerTransitive">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en"
+            >narrower transitive</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >By convention, skos:narrowerTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#semanticRelation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#note -->
+
+    <owl:ObjectProperty rdf:about="#note">
+        <rdfs:label xml:lang="en">note</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >This property may be used directly, or as a super-property for more specific note types.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#prefLabel -->
+
+    <owl:ObjectProperty rdf:about="#prefLabel">
+        <rdfs:subPropertyOf rdf:resource="&rdfs;label"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#related -->
+
+    <owl:ObjectProperty rdf:about="#related">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label xml:lang="en">related to</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >skos:related is disjoint with skos:broaderTransitive</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#semanticRelation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#relatedMatch -->
+
+    <owl:ObjectProperty rdf:about="#relatedMatch">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label xml:lang="en">related match</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#mappingRelation"/>
+        <rdfs:subPropertyOf rdf:resource="#related"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#scopeNote -->
+
+    <owl:ObjectProperty rdf:about="#scopeNote">
+        <rdfs:label xml:lang="en">scope note</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:subPropertyOf rdf:resource="#note"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#semanticRelation -->
+
+    <owl:ObjectProperty rdf:about="#semanticRelation">
+        <rdfs:label xml:lang="en"
+            >semantic relation</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >This property should not be used directly, but as a super-property for all properties denoting a relationship of meaning between concepts.</rdfs:comment>
+        <rdfs:range rdf:resource="#Concept"/>
+        <rdfs:domain rdf:resource="#Concept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#topConceptOf -->
+
+    <owl:ObjectProperty rdf:about="#topConceptOf">
+        <rdfs:label xml:lang="en"
+            >top concept in scheme</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="#Concept"/>
+        <rdfs:range rdf:resource="#ConceptScheme"/>
+        <rdfs:subPropertyOf rdf:resource="#inScheme"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/issued -->
+
+    <owl:DatatypeProperty rdf:about="&terms;issued"/>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#value -->
+
+    <owl:DatatypeProperty rdf:about="&rdf;value"/>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#altLabel -->
+
+    <owl:DatatypeProperty rdf:about="#altLabel">
+        <rdfs:label xml:lang="en"
+            >alternative label</rdfs:label>
+        <rdfs:comment xml:lang="en"
+            >Acronyms, abbreviations, spelling variants, and irregular plural/singular forms may be included among the alternative labels for a concept.  Mis-spelled terms are normally included as hidden labels (see skos:hiddenLabel).</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >The range of skos:altLabel is the class of RDF plain literals.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#definition -->
+
+    <owl:DatatypeProperty rdf:about="#definition"/>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#hiddenLabel -->
+
+    <owl:DatatypeProperty rdf:about="#hiddenLabel">
+        <rdfs:label xml:lang="en">hidden label</rdfs:label>
+        <rdfs:comment xml:lang="en"
+            >The range of skos:hiddenLabel is the class of RDF plain literals.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#notation -->
+
+    <owl:DatatypeProperty rdf:about="#notation">
+        <rdfs:label xml:lang="en">notation</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >By convention, skos:notation is used with a typed literal in the object position of the triple.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#prefLabel -->
+
+    <owl:DatatypeProperty rdf:about="#prefLabel">
+        <rdfs:label xml:lang="en">preferred label</rdfs:label>
+        <rdfs:comment xml:lang="en"
+            >No two concepts in the same concept scheme may have the same value for skos:prefLabel in a given language.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >The range of skos:prefLabel is the class of RDF plain literals.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#List -->
+
+    <owl:Class rdf:about="&rdf;List"/>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#Collection -->
+
+    <owl:Class rdf:about="#Collection">
+        <rdfs:label xml:lang="en">Collection</rdfs:label>
+        <owl:disjointWith rdf:resource="#Concept"/>
+        <owl:disjointWith rdf:resource="#ConceptScheme"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >Labelled collections can be used with collectable semantic relation properties e.g. skos:narrower, where you would like a set of concepts to be displayed under a &#39;node label&#39; in the hierarchy.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#Concept -->
+
+    <owl:Class rdf:about="#Concept">
+        <rdfs:label xml:lang="en">Concept</rdfs:label>
+        <owl:disjointWith rdf:resource="#ConceptScheme"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#ConceptScheme -->
+
+    <owl:Class rdf:about="#ConceptScheme">
+        <rdfs:label xml:lang="en">Concept Scheme</rdfs:label>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >A concept scheme may be defined to include concepts from different sources.</rdfs:comment>
+        <rdfs:comment xml:lang="en"
+            >Thesauri, classification schemes, subject heading lists, taxonomies, &#39;folksonomies&#39;, and other types of controlled vocabulary are all examples of concept schemes.  Concept schemes are also embedded in glossaries and terminologies.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#OrderedCollection -->
+
+    <owl:Class rdf:about="#OrderedCollection">
+        <rdfs:label xml:lang="en"
+            >Ordered Collection</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Collection"/>
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en"
+            >Ordered collections can be used with collectable semantic relation properties, where you would like a set of concepts to be displayed in a specific order, and optionally under a &#39;node label&#39;.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid1 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid10 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid11 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid12 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid13 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid14 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid15 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid16 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid17 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid18 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid19 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid2 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid20 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid21 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid22 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid23 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid24 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid25 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid26 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid27 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid28 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid29 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid3 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid30 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid31 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid32 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid4 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid5 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid6 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid7 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid8 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://triplr.org/rdf/www.w3.org/2008/05/skos#genid9 -->
+
+    <rdf:Description/>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#Collection -->
+
+    <rdf:Description rdf:about="#Collection">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A meaningful collection of concepts.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#Concept -->
+
+    <rdf:Description rdf:about="#Concept">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >An abstract idea or notion; a unit of thought.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#ConceptScheme -->
+
+    <rdf:Description rdf:about="#ConceptScheme">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A set of concepts, optionally including statements about semantic relationships between those concepts.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#OrderedCollection -->
+
+    <rdf:Description rdf:about="#OrderedCollection">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >An ordered collection of concepts, where both the grouping and the ordering are meaningful.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#altLabel -->
+
+    <rdf:Description rdf:about="#altLabel">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >An alternative lexical label for a resource.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broadMatch -->
+
+    <rdf:Description rdf:about="#broadMatch">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broader -->
+
+    <rdf:Description rdf:about="#broader">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A concept that is more general in meaning.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#broaderTransitive -->
+
+    <rdf:Description rdf:about="#broaderTransitive">
+        <definition
+            >skos:broaderTransitive is a transitive superproperty of skos:broader.</definition>
+        <terms:issued>2008-05-xx</terms:issued>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#changeNote -->
+
+    <owl:ObjectProperty rdf:about="#changeNote">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A note about a modification to a concept.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </owl:ObjectProperty>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#closeMatch -->
+
+    <rdf:Description rdf:about="#closeMatch">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of &quot;compound errors&quot; when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#definition -->
+
+    <owl:DatatypeProperty rdf:about="#definition">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A statement or formal explanation of the meaning of a concept.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </owl:DatatypeProperty>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#editorialNote -->
+
+    <rdf:Description rdf:about="#editorialNote">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A note for an editor, translator or maintainer of the vocabulary.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#exactMatch -->
+
+    <rdf:Description rdf:about="#exactMatch">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >skos:exactMatch is used to link two concepts, indicating a high degree of confidence that the concepts can be used interchangeably across a wide range of information retrieval applications. skos:exactMatch is a transitive property, and is a sub-property of skos:closeMatch.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#example -->
+
+    <rdf:Description rdf:about="#example">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >An example of the use of a concept.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#hasTopConcept -->
+
+    <rdf:Description rdf:about="#hasTopConcept">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A top level concept in the concept scheme.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#hiddenLabel -->
+
+    <rdf:Description rdf:about="#hiddenLabel">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A lexical label for a resource that should be hidden when generating visual displays of the resource, but should still be accessible to free text search operations.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#historyNote -->
+
+    <rdf:Description rdf:about="#historyNote">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A note about the past state/use/meaning of a concept.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#inScheme -->
+
+    <rdf:Description rdf:about="#inScheme">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A concept scheme in which the concept is included.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#mappingRelation -->
+
+    <rdf:Description rdf:about="#mappingRelation">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en">Definition</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#member -->
+
+    <rdf:Description rdf:about="#member">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A member of a collection.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#memberList -->
+
+    <rdf:Description rdf:about="#memberList">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >An RDF list containing the members of an ordered collection.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrowMatch -->
+
+    <rdf:Description rdf:about="#narrowMatch">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >skos:narrowMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrower -->
+
+    <rdf:Description rdf:about="#narrower">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A concept that is more specific in meaning.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#narrowerTransitive -->
+
+    <rdf:Description rdf:about="#narrowerTransitive">
+        <definition
+            >skos:narrowerTransitive is a transitive superproperty of skos:broader. By convention, skos:narrowerTransitive is not intended to be used in assertions, but provides a mechanism whereby the transitive closure of skos:narrower can be queried.</definition>
+        <terms:issued>2008-05-xx</terms:issued>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#notation -->
+
+    <rdf:Description rdf:about="#notation">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A notation, also known as classification code, is a string of characters such as &quot;T58.5&quot; or &quot;303.4833&quot; used to uniquely identify a concept within the scope of a given concept scheme.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Alistair Miles</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#note -->
+
+    <rdf:Description rdf:about="#note">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A general note, for any purpose.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#prefLabel -->
+
+    <rdf:Description rdf:about="#prefLabel">
+        <rdfs:isDefinedBy rdf:datatype="&xsd;anyURI"
+            >http://www.w3.org/2008/05/skos</rdfs:isDefinedBy>
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >The preferred lexical label for a resource, in a given language.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#related -->
+
+    <rdf:Description rdf:about="#related">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A concept with which there is an associative semantic relationship.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#relatedMatch -->
+
+    <rdf:Description rdf:about="#relatedMatch">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >skos:relatedMatch is used to state an associative mapping link between two conceptual resources in different concept schemes.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#scopeNote -->
+
+    <rdf:Description rdf:about="#scopeNote">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A note that helps to clarify the meaning of a concept.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#semanticRelation -->
+
+    <rdf:Description rdf:about="#semanticRelation">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >A concept related by meaning.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+    
+
+
+    <!-- http://www.w3.org/2008/05/skos#topConceptOf -->
+
+    <rdf:Description rdf:about="#topConceptOf">
+        <terms:issued>2008-05-xx</terms:issued>
+        <definition xml:lang="en"
+            >Relates a concept to the concept scheme that it is a top level concept of.</definition>
+        <changeNote>
+            <rdf:Description/>
+        </changeNote>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:creator>Sean Bechhofer</dc:creator>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:value
+            >Initial description.</rdf:value>
+    </rdf:Description>
+    <rdf:Description>
+        <dc:date>2008-05-xx</dc:date>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.941) http://owlapi.sourceforge.net -->
+
