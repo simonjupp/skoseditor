@@ -1,0 +1,294 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<project name = "SKOSEd" default = "install" basedir = ".">
+   <property file="local.properties"/>
+   <property environment="env"/>
+
+   <property file="version.properties"/>
+   <property name="major.version" value="1"/>
+   <property name="minor.version" value="1"/>
+   <property name="micro.version" value="2"/>
+
+
+   <!-- 
+        To run this build file set the environment variable
+        PROTEGE_HOME to point to a protege distribution and type ant
+        install or jar.
+     -->
+
+   <!-- ============================================================= -->
+   <!-- 
+        This section may need to be customized by the developer for a 
+        particular project 
+     -->
+
+   <!-- 
+        This setting defines the name of the plugin.
+        This may be the only setting that the developer needs to
+        change.
+     -->
+   <property name = "plugin"          value = "org.sealife.skos"/>
+
+   
+   <!-- 
+        Here is the copy.resources target.  It may need modification
+        to copy the right resources into the classes directory.  By
+        default it already copies non-java files found in the source
+        directory, the libraries needed by the project and the
+        viewconfig and the plugin.xml.  This will be sufficient in
+        many cases. 
+     -->
+   <target name="copy.resources" depends="build.manifest">
+     <copy todir="${classes}">
+       <fileset dir="${src}">
+         <include name="**/*"/>
+         <exclude name="**/*.java"/>
+         <exclude name="**/MANIFEST.MF"/>
+         <exclude name="**/manifest.mf"/>
+       </fileset>
+       <fileset dir="./resources"/>
+     </copy>
+     <copy todir="${classes}/lib">
+       <fileset dir="${lib}" excludes="junit*.jar"/>
+     </copy>
+     <copy todir="${classes}">
+       <fileset dir="." includes="*.xml">
+           <exclude name="build.xml"/>
+       </fileset>
+     </copy>
+   	 <!-- the manifest doesn't belong here but this is good for IDE's -->
+     <mkdir dir="${classes}/META-INF"/>  
+     <copy todir="${classes}/META-INF"   
+           file = "${manifest}"/>
+   </target>
+
+
+   <!-- 
+        The following target only needs to be modified if the
+        developer needs to obtain some jar files that are contained in
+        the Protege bundles.  The contents of these jar files are
+        found when Protege 4 runs but may be needed in order to
+        compile the plugin. 
+     -->
+   <target name = "buildlibs" depends="init, checkProtegeLibsAndReport">
+       <unjar dest="${build}"
+              src="${common.lib}">
+           <patternset>
+               <include name = "**/log4j.jar"/>
+           </patternset>
+       </unjar>
+   </target>
+
+
+
+   <!-- 
+        The following target only needs to be modified if the user
+        needs to change the classpath.  It is preconfigured to use
+        the common protege 4 jars, the lib directory and the
+        libraries that have been uncovered in buildlibs. 
+     -->
+   <target name = "checkProtegeLibs">
+     <echo message="Using Protege Home = ${protege.home} to find protege jars"/>
+     <condition property="libs.found">
+       <and>
+	 <available file="${equinox.common}" type = "file"/>
+	 <available file="${equinox.registry}" type = "file"/>
+	 <available file="${owl.editor.jar}" type = "file"/>
+         <available file="${owl.lib}" type="file"/>
+       </and>
+     </condition>
+     <path id = "project.classpath">    
+       <pathelement location = "${protege.lib}"/>
+       <pathelement location="${equinox.common}"/>
+       <pathelement location="${equinox.registry}"/>
+       <pathelement location="${owl.editor.jar}"/>
+       <pathelement location="${owl.lib}"/>
+       <fileset dir="${lib}"/>
+       <fileset dir="${genlib}"/>
+     </path>
+   </target>
+
+
+   <!-- 
+        It is less likely that the developer will want to make changes
+        below this line 
+        -->
+   <!-- ============================================================= -->
+
+   
+   <property name="protege.home"      location="${env.PROTEGE_HOME}"/>
+   <property name = "src"             location = "./src"/>  
+   <property name = "build"           location = "./build"/>
+   <property name = "classes"         location = "${build}/classes"/>
+   <property name = "lib"             location = "./lib"/>
+   <property name = "genlib"          location = "${build}/lib"/>
+   <property name = "manifest"        location = "${build}/manifest.mf"/>
+
+   <!-- 
+        This is the section that changes for different distributions.
+        It would only need small changes for knopflerfish or felix.
+     -->
+
+   <property name="osgi"
+             location="${protege.home}/org.eclipse.osgi.jar"/>
+   <property name="equinox.common" 
+             location="${protege.home}/bundles/org.eclipse.equinox.common.jar"/>
+   <property name="equinox.registry"
+             location="${protege.home}/bundles/org.eclipse.equinox.registry.jar"/>
+   <property name="protege.lib" 
+             location="${protege.home}/bundles/org.protege.editor.core.application.jar"/>
+   <property name="common.lib"
+             location="${protege.home}/bundles/org.protege.common.jar"/>
+
+   <property name="owl.lib"
+             location="${protege.home}/plugins/org.semanticweb.owl.owlapi.jar"/>
+
+   <property name="owl.editor.jar"
+	     location="${protege.home}/plugins/org.protege.editor.owl.jar"/>
+
+   <!-- end of equinox specific settings -->
+
+
+   <target name = "usage">
+     <echo message = "To run this script set the PROTEGE_HOME environment"/>
+     <echo message = "variable and use one of the following targets"/>
+     <echo message = "jar - builds the jar (bundle) file for this project"/>
+     <echo message = "install - installs  the bundle into the Protege distribution"/>
+     <echo message = "copy.resources - copyies resources into the classes directory"/>
+     <echo message = "    this can  be useful for ide developers - see the wiki"/>
+   </target>
+
+   <target name = "init">
+     <tstamp>
+       <format property="build.time" pattern="MM/dd/yyyy hh:mm aa"/>
+     </tstamp>
+     <property name="bundle.version"
+               value="${major.version}.${minor.version}.${micro.version}"/>
+     <mkdir dir = "${build}"/>
+     <mkdir dir = "${classes}"/>
+     <mkdir dir = "${classes}/lib"/>
+     <mkdir dir = "${genlib}"/>
+   </target>  
+   	
+   <target name="checkProtegeHome">
+       <condition property="protege.home.set">
+           <available file="${protege.home}/org.protege.editor.core.application.jar" type="file"/>
+       </condition>
+   </target>
+
+    <target name="checkProtegeLibsAndReport" depends="checkProtegeLibs"
+            unless="libs.found">
+      <echo message="Missing protege libraries.  You need to set "/>
+      <echo message="the PROTEGE_HOME environment variable to a"/>
+      <echo message="protege installation directory where the"/>
+      <echo message="appropriate plugins have been installed."/>
+      <echo message="Alternatively set the jar libs in local.properties (protege.lib=...)"/>
+      <echo message="Use the -v option to ant to see what jars are missing."/>
+      <fail message = "missing protege libraries"/>
+    </target>
+      
+
+   <target name = "compile" depends = "buildlibs, checkProtegeLibsAndReport">
+     <javac srcdir="${src}"
+            excludes="org/coode/matrix/test/*,java"
+            destdir = "${classes}" 
+            debug="on"
+            includeAntRuntime="false">
+       <classpath refid = "project.classpath"/>  
+     </javac>
+   </target>
+
+   <target name="build.manifest">
+     <copy tofile="${manifest}" 
+           file="META-INF/MANIFEST.MF" overwrite="true"/>
+     <manifest file="${manifest}" 
+               mode = "update">
+        <attribute name="Built-By" value = "${user.name}"/>
+        <attribute name="Build-Date" value = "${build.time}"/>
+        <attribute name="Bundle-Version" value="${bundle.version}"/>
+     </manifest>
+   </target>
+
+   <target name = "jar" depends = "compile, copy.resources">
+     <jar jarfile = "${build}/${plugin}.jar"
+          basedir = "${classes}" 
+          manifest = "${build}/manifest.mf"/>
+   </target>
+
+   <target name = "install" depends = "jar">
+     <copy file="${build}/${plugin}.jar" 
+           todir = "${protege.home}/plugins"
+           overwrite = "true"/>
+   </target>
+
+   <target name = "clean">
+     <delete dir = "${build}"/>
+   </target>
+
+
+   <!-- ===================================================================  -->
+   <!-- Distribution Support - Optional                                      -->
+   <!-- ===================================================================  -->
+
+   <!-- 
+        **** CHANGE ME ****
+
+     This entire last section will probably only need to be setup relatively 
+     late in a project. It is optional and you can delete this section
+     if desired (you can always get it from the plugin template later
+     when you need it.)  It is designed to make it easier for
+     plugin developers to configure an update.properties file for use with the
+     Protege 4 automatic update feature.   Setting up the
+     update.properties file is a tedious process and I am trying to
+     make it simpler.  There will be a wiki for this process soon when
+     the new version of the Protege update mechanism is in place. 
+
+     This first property is the svn root of this project.  The idea is
+     allow the Protege update mechanism to find the update.properties
+     and version-readme.html in the ${svn.root}/etc directory of the
+     svn repository.  So all you need to do to make these files
+     available to the Protege update process is  to commit them.
+     However, feel free to choose other locations for these files if
+     it makes sense.
+     -->
+<!--   <property name="svn.root" value="http://co-ode-owl-plugins.googlecode.com/svn/trunk/matrix"/>
+
+
+   <property name="update.properties.file" value="${svn.root}/etc/update.matrix.properties"/>
+   <property name="readme.file"            value="${svn.root}/etc/version.matrix.html"/>
+
+   <property name="download"               value="http://co-ode-owl-plugins.googlecode.com/files/${plugin}_${major.version}_${minor.version}_${micro.version}.zip"/>
+
+
+   <target name = "dist" depends="jar">
+       <echo file="./etc/update.matrix.properties" append="false">
+name=Matrix Views
+id=${plugin}
+version=${bundle.version}
+download=${download}
+readme=${readme.file}
+license=http://www.gnu.org/licenses/lgpl.html
+author=CO-ODE, The University of Manchester
+       </echo>
+       <zip destfile="${build}/${plugin}_${major.version}_${minor.version}_${micro.version}.zip">
+           <fileset dir="${build}">
+               <filename name="${plugin}.jar"/>
+           </fileset>
+       </zip>
+       <echo message="The build file should ensure that"/>
+       <echo message="1. The bundle version and id is correct."/>
+       <echo message="Check the following things"/>
+       <echo message="1. The main repository uses "/>
+       <echo message="      ${update.properties.file}"/>
+       <echo message="   to find this update"/>
+       <echo message="2. The update.properties can be found at "/>
+       <echo message="      ${update.properties.file}"/>
+       <echo message="   Usually this is ensured by committing your changed files."/>
+       <echo message="3. The readme file for this update can be found at"/>
+       <echo message="      ${readme.file}"/>
+       <echo message="   Usually this is ensured by committing your changed files."/>
+       <echo message="4. The download for this update can be found at"/>
+       <echo message="      ${download}"/>
+   </target>
+-->
+
+</project>
