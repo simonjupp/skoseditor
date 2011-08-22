@@ -57,7 +57,7 @@ public class SKOSConceptInferredHierarchyViewComponent extends AbstractHierarchy
         createTree(getProvider());
 
         // todo check this is a valid check to see if the reasoner is classified!
-        if (getOWLModelManager().getOWLReasonerManager().getReasonerStatus().isEnableInitialization()) {
+//        if (getOWLModelManager().getOWLReasonerManager().getReasonerStatus().isEnableInitialization()) {
             setIgnoreSelected(false);
             getTree().getSelectionModel().addTreeSelectionListener( new TreeSelectionListener() {
                 public void valueChanged(TreeSelectionEvent e) {
@@ -67,7 +67,7 @@ public class SKOSConceptInferredHierarchyViewComponent extends AbstractHierarchy
 
             SKOSConceptInferredHierarchyProvider infProv = (SKOSConceptInferredHierarchyProvider) getProvider();
             infProv.reasonerUpdated();
-        }
+//        }
 
 
         // add a listener for classification

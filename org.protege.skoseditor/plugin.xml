@@ -75,7 +75,7 @@
     <extension id="SKOSAnnotations"
                point="org.protege.editor.core.application.ViewComponent">
         <label value="SKOS Annotations"/>
-        <class value="org.protege.editor.owl.ui.view.OWLIndividualAnnotationsViewComponent"/>
+        <class value="org.protege.editor.owl.ui.view.individual.OWLIndividualAnnotationsViewComponent"/>
         <headerColor value="CC6600"/>
         <category value="SKOSEd"/>
     </extension>
@@ -83,7 +83,7 @@
     <extension id="SKOSUsageView"
                point="org.protege.editor.core.application.ViewComponent">
         <label value="SKOS Usage"/>
-        <class value="org.protege.editor.owl.ui.view.OWLIndividualUsageViewComponent"/>
+        <class value="org.protege.editor.owl.ui.view.individual.OWLIndividualUsageViewComponent"/>
         <headerColor value="CC6600"/>
         <category value="SKOSEd"/>
     </extension>
@@ -155,11 +155,11 @@
     <!--</extension>-->
 
 
-    <extension id="ui.preferences.skosrenderer"
-               point="org.protege.editor.core.application.preferencespanel">
-        <label value="SKOS Renderer"/>
-        <class value="org.sealife.skos.editor.panels.SKOSRendererPreferencesPanel"/>
-    </extension>
+    <!--<extension id="ui.preferences.skosrenderer"-->
+               <!--point="org.protege.editor.core.application.preferencespanel">-->
+        <!--<label value="SKOS Renderer"/>-->
+        <!--<class value="org.sealife.skos.editor.panels.SKOSRendererPreferencesPanel"/>-->
+    <!--</extension>-->
 
 
 </plugin>

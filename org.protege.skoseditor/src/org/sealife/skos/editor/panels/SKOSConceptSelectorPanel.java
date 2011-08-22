@@ -78,6 +78,8 @@ public class SKOSConceptSelectorPanel extends AbstractSelectorPanel<OWLNamedIndi
      * ListSelectionModel.SINGLE_SELECTION)
      *
      * @param eKit
+     * @param editable
+     * @param ontologies
      * @param selectionMode
      */
     public SKOSConceptSelectorPanel(OWLEditorKit eKit, boolean editable, Set<OWLOntology> ontologies, int selectionMode) {
@@ -90,7 +92,7 @@ public class SKOSConceptSelectorPanel extends AbstractSelectorPanel<OWLNamedIndi
     public static OWLNamedIndividual showDialog(OWLEditorKit owlEditorKit) {
         SKOSConceptSelectorPanel panel = new SKOSConceptSelectorPanel(owlEditorKit, true, owlEditorKit.getModelManager().getOntologies(), ListSelectionModel.SINGLE_SELECTION);
 
-        int ret = new UIHelper(owlEditorKit).showDialog("Create a new SKOS Concept", panel, panel.viewComponent);
+        int ret = new UIHelper(owlEditorKit).showDialog("Select a SKOS Concept", panel, panel.viewComponent);
 
         if (ret == JOptionPane.OK_OPTION) {
             OWLNamedIndividual ind = panel.getSelectedObject();
@@ -177,27 +179,5 @@ public class SKOSConceptSelectorPanel extends AbstractSelectorPanel<OWLNamedIndi
         viewComponent.removeChangeListener(listener);
     }
 
-    /**
-     * @deprecated Use <code>getSelectedObject</code>
-     * @return
-     */
-    public OWLNamedIndividual getSelectedIndividual() {
-        return getSelectedObject();
-    }
-
-    /**
-     * @deprecated Use <code>getSelectedObjects</code>
-     * @return
-     */
-    public Set<OWLNamedIndividual> getSelectedIndividuals() {
-        return getSelectedObjects();
-    }
-
-    /**
-     * @deprecated Use <code>setSelection</code>
-     * @param ind
-     */
-    public void setSelectedIndividual(OWLNamedIndividual ind) {
-        setSelection(ind);
-    }
+    
 }

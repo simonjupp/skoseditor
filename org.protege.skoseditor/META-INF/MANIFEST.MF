@@ -7,7 +7,7 @@ Bundle-Description: Plugin for viewing SKOS vocabularies in Protege
 Bundle-Vendor: Sealife project
 Bundle-DocURL: http://cs.man.ac.uk/~sjupp
 Bundle-ClassPath: .,
-    lib/skos-api-3.jar,
+    lib/skosapi-3-bin.jar,
     icons/,
     resources/
 Update-Url: http://skoseditor.googlecode.com/svn/trunk/org.sealife.skos/skos-update.properties    

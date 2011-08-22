@@ -50,6 +50,9 @@
      <copy todir="${classes}/lib">
        <fileset dir="${lib}" excludes="junit*.jar"/>
      </copy>
+     <copy todir="${classes}/icons">
+       <fileset dir="${icons}"/>
+     </copy>
      <copy todir="${classes}">
        <fileset dir="." includes="*.xml">
            <exclude name="build.xml"/>
@@ -120,6 +123,7 @@
    <property name = "build"           location = "./build"/>
    <property name = "classes"         location = "${build}/classes"/>
    <property name = "lib"             location = "./lib"/>
+   <property name = "icons"           location = "./icons"/>
    <property name = "genlib"          location = "${build}/lib"/>
    <property name = "manifest"        location = "${build}/manifest.mf"/>
 
@@ -166,6 +170,7 @@
      <mkdir dir = "${build}"/>
      <mkdir dir = "${classes}"/>
      <mkdir dir = "${classes}/lib"/>
+     <mkdir dir = "${classes}/icons"/>
      <mkdir dir = "${genlib}"/>
    </target>  
    	

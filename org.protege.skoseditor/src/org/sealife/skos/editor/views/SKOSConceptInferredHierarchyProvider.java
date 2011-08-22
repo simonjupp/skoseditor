@@ -1,14 +1,12 @@
 package org.sealife.skos.editor.views;
 
 import org.protege.editor.owl.model.OWLModelManager;
-import org.protege.editor.owl.ui.frame.individual.OWLObjectPropertyAssertionAxiomFrameSectionRow;
 import org.sealife.skos.editor.SKOSVocabulary;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -133,7 +131,9 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
         broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getIRI()));
 
         for (OWLObjectPropertyExpression pb1 : broaderProperty) {
-            broaderProperties.add(pb1.asOWLObjectProperty());
+            if (!pb1.isAnonymous()) {
+                broaderProperties.add(pb1.asOWLObjectProperty());
+            }
         }
         return broaderProperties;
     }
@@ -146,7 +146,9 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
         narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getIRI()));
 
         for (OWLObjectPropertyExpression pb1 : narrowerProperty) {
-            narrowerProperties.add(pb1.asOWLObjectProperty());
+            if (!pb1.isAnonymous()) {
+                narrowerProperties.add(pb1.asOWLObjectProperty());
+            }
         }
         return narrowerProperties;
 
