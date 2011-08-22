@@ -7,17 +7,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="org.semanticweb.owl.owlapi" />
+    <orderEntry type="module" module-name="org.protege.editor.owl" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/skos-api-3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/skosapi-3-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="org.semanticweb.owl.owlapi" />
-    <orderEntry type="module" module-name="org.protege.editor.owl" />
   </component>
 </module>
 

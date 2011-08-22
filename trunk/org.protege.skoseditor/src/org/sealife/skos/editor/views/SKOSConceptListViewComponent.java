@@ -215,54 +215,55 @@ public class SKOSConceptListViewComponent extends
 
 	private void processChanges(java.util.List<? extends OWLOntologyChange> changes) {
 
-        // todo fix this whole method
-//		OWLEntityCollector addedCollector = new OWLEntityCollector();
-//		OWLEntityCollector removedCollector = new OWLEntityCollector();
-//		for (OWLOntologyChange chg : changes) {
-//			if (chg.isAxiomChange()) {
-//				OWLAxiomChange axChg = (OWLAxiomChange) chg;
-//				if (axChg instanceof AddAxiom) {
-//					axChg.getAxiom().accept(addedCollector);
-//				} else {
-//					axChg.getAxiom().accept(removedCollector);
-//				}
-//			}
-//		}
-//		boolean mod = false;
-//		for (OWLEntity ent : addedCollector.getObjects()) {
-//			if (ent instanceof OWLNamedIndividual) {
-//
-//                for (SKOSDataset dataset: skosManager.getSKOSDataSets()) {
-//                    for (SKOSConcept con : dataset.getSKOSConcepts()) {
-//                        if (con.getURI().equals(ent.getURI())) {
-//                            if (this.individualsInList.add((OWLNamedIndividual) ent)) {
-//                                mod = true;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//			}
-//		}
-//		for (OWLEntity ent : removedCollector.getObjects()) {
-//			if (ent instanceof OWLNamedIndividual) {
-//				boolean stillReferenced = false;
-//				for (OWLOntology ont : getOntologies()) {
-//					if (ont.containsIndividualReference(ent.getURI())) {
-//						stillReferenced = true;
-//						break;
-//					}
-//				}
-//				if (!stillReferenced) {
-//					if (this.individualsInList.remove(ent)) {
-//						mod = true;
-//					}
-//				}
-//			}
-//		}
-//		if (mod) {
-//			this.reset();
-//		}
+        Set<OWLEntity> addedSet = new HashSet<OWLEntity>();
+        Set<OWLEntity> removedSet = new HashSet<OWLEntity>();
+		OWLEntityCollector addedCollector = new OWLEntityCollector(addedSet);
+		OWLEntityCollector removedCollector = new OWLEntityCollector(removedSet);
+		for (OWLOntologyChange chg : changes) {
+			if (chg.isAxiomChange()) {
+				OWLAxiomChange axChg = (OWLAxiomChange) chg;
+				if (axChg instanceof AddAxiom) {
+					axChg.getAxiom().accept(addedCollector);
+				} else {
+					axChg.getAxiom().accept(removedCollector);
+				}
+			}
+		}
+		boolean mod = false;
+		for (OWLEntity ent : addedSet) {
+			if (ent instanceof OWLNamedIndividual) {
+
+                for (SKOSDataset dataset: skosManager.getSKOSDataSets()) {
+                    for (SKOSConcept con : dataset.getSKOSConcepts()) {
+                        if (con.getURI().equals(ent.getIRI().toURI())) {
+                            if (this.individualsInList.add((OWLNamedIndividual) ent)) {
+                                mod = true;
+                            }
+                        }
+                    }
+                }
+
+			}
+		}
+		for (OWLEntity ent : removedSet) {
+			if (ent instanceof OWLNamedIndividual) {
+				boolean stillReferenced = false;
+				for (OWLOntology ont : getOntologies()) {
+					if (ont.containsIndividualInSignature(ent.getIRI())) {
+						stillReferenced = true;
+						break;
+					}
+				}
+				if (!stillReferenced) {
+					if (this.individualsInList.remove(ent)) {
+						mod = true;
+					}
+				}
+			}
+		}
+		if (mod) {
+			this.reset();
+		}
 	}
 
 	private void addIndividual() {

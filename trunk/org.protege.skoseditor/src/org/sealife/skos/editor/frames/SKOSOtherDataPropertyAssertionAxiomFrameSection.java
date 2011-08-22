@@ -8,10 +8,7 @@ import org.protege.editor.owl.ui.frame.OWLDataPropertyConstantPair;
 import org.protege.editor.owl.ui.frame.OWLFrame;
 import org.protege.editor.owl.ui.frame.OWLFrameSectionRow;
 import org.protege.editor.owl.ui.frame.individual.OWLDataPropertyAssertionAxiomFrameSectionRow;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -88,34 +85,46 @@ public class SKOSOtherDataPropertyAssertionAxiomFrameSection extends AbstractOWL
 
 
     protected void refillInferred() {
-//        Map<OWLDataProperty, Set<OWLConstant>> rels = getReasoner().getDataPropertyRelationships(getRootObject());
-//        for (OWLDataProperty prop : rels.keySet()) {
-//
-//             for (Set<OWLDataProperty> propSet : getReasoner().getAncestorProperties(prop)) {
-//
-//                for (OWLDataProperty ancProp : propSet) {
-//                    if (propertyFiltersSet.contains(ancProp)) {
-//                        propertyFiltersSet.add(prop);
-//                    }
-//                }
-//            }
-//
-//            if (!propertyFiltersSet.contains(prop)) {
-//                for (OWLConstant constant : rels.get(prop)) {
-//                    OWLDataPropertyAssertionAxiom ax = getOWLDataFactory().getOWLDataPropertyAssertionAxiom(
-//                            getRootObject(),
-//                            prop,
-//                            constant);
-//                    if (!added.contains(ax)) {
-//                        addRow(new OWLDataPropertyAssertionAxiomFrameSectionRow(getOWLEditorKit(),
-//                                                                                this,
-//                                                                                null,
-//                                                                                getRootObject(),
-//                                                                                ax));
-//                    }
-//                }
-//            }
-//        }
+
+
+        Set<OWLDataProperty> allDataProperties = new HashSet<OWLDataProperty>();
+
+        for (OWLOntology ontology : getOWLOntologyManager().getOntologies()) {
+
+            for (OWLDataProperty property : ontology.getDataPropertiesInSignature()) {
+
+                for (OWLDataProperty ancProp : getReasoner().getSuperDataProperties(property, true).getFlattened()) {
+
+                    if (propertyFiltersSet.contains(ancProp)) {
+                        propertyFiltersSet.add(property);
+                    }
+                }
+                allDataProperties.add(property);
+            }
+        }
+
+        for (OWLDataProperty prop : allDataProperties) {
+
+            for (OWLDataProperty property : getReasoner().getSubDataProperties(prop, true).getFlattened()) {
+
+                if (!propertyFiltersSet.contains(property)) {
+                    Set<OWLLiteral> literals = getReasoner().getDataPropertyValues(getRootObject().asOWLNamedIndividual(), property);
+                    for (OWLLiteral lit : literals) {
+                        OWLDataPropertyAssertionAxiom ax = getOWLDataFactory().getOWLDataPropertyAssertionAxiom(
+                                property,
+                                getRootObject(),
+                                lit);
+                        if (!added.contains(ax)) {
+                            addRow(new OWLDataPropertyAssertionAxiomFrameSectionRow(getOWLEditorKit(),
+                                    this,
+                                    null,
+                                    getRootObject(),
+                                    ax));
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

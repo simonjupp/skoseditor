@@ -50,7 +50,7 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
     OWLClass conceptClass;
     OWLObjectProperty inScheme;
 
-    public SKOSEntityCreationPanel(OWLEditorKit owlEditorKit, String message, Class type) {
+    public SKOSEntityCreationPanel(OWLEditorKit owlEditorKit, String message, Class<T> type) {
         super(owlEditorKit, message, type);
         this.owlEditorKit = owlEditorKit;
         this.type = type;
@@ -94,6 +94,7 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
 
 
         try {
+
             OWLEntityCreationSet newInd = owlEditorKit.getModelManager().getOWLEntityFactory().createOWLEntity(type,
                                                                                             getEntityName(),
                                                                                             getBaseIRI());
@@ -105,6 +106,7 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
                 OWLPropertyAssertionAxiom inSchemeAx = owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(inScheme, newInd.getOWLEntity().asOWLNamedIndividual() , getSelectedConceptScheme());
                 newInd.getOntologyChanges().add(new AddAxiom(owlEditorKit.getModelManager().getActiveOntology(), inSchemeAx));
             }
+
             return newInd;
 
         } catch (OWLEntityCreationException e) {

@@ -7,13 +7,13 @@
 
         <CNode>
             <Component label="Asserted Concept Hierarchy">
-                <Property id="pluginId" value="org.sealife.skos.SKOSHierarchyViewComponent"/>
+                <Property id="pluginId" value="org.protege.skoseditor.SKOSHierarchyViewComponent"/>
             </Component>
             <Component label="Concept Scheme List View">
-                <Property id="pluginId" value="org.sealife.skos.SKOSConceptSchemeListViewComponent"/>
+                <Property id="pluginId" value="org.protege.skoseditor.SKOSConceptSchemeListViewComponent"/>
             </Component>
             <Component label="Top Concepts Hierarchy View">
-                <Property id="pluginId" value="org.sealife.skos.SKOSConceptSchemeAssertedHierarchyViewComponent"/>
+                <Property id="pluginId" value="org.protege.skoseditor.SKOSConceptSchemeAssertedHierarchyViewComponent"/>
             </Component>
         </CNode>
 
@@ -22,24 +22,24 @@
 
             <CNode>
                 <Component label="SKOS Annotations">
-                    <Property id="pluginId" value="org.sealife.skos.SKOSAnnotations"/>
+                    <Property id="pluginId" value="org.protege.skoseditor.SKOSAnnotations"/>
                 </Component>
                 <Component label="SKOS Usage">
-                    <Property id="pluginId" value="org.sealife.skos.SKOSUsageView"/>
+                    <Property id="pluginId" value="org.protege.skoseditor.SKOSUsageView"/>
                 </Component>
             </CNode>
 
             <VSNode splits="0.5 0.5">
                 <CNode>
                     <Component label="SKOS Object Properties">
-                        <Property id="pluginId" value="org.sealife.skos.SKOSObjectPropertyAssertionViewComponent"/>
+                        <Property id="pluginId" value="org.protege.skoseditor.SKOSObjectPropertyAssertionViewComponent"/>
                     </Component>
                 </CNode>
 
 
                 <CNode>
                     <Component label="SKOS Data Properties">
-                        <Property id="pluginId" value="org.sealife.skos.SKOSDataPropertyAssertionViewComponent"/>
+                        <Property id="pluginId" value="org.protege.skoseditor.SKOSDataPropertyAssertionViewComponent"/>
                     </Component>
                 </CNode>
 

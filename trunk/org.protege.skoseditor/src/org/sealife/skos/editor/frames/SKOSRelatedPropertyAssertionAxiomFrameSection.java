@@ -54,7 +54,7 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
 
     AbstractSelectorPanel panel;
 
-    public SKOSRelatedPropertyAssertionAxiomFrameSection(OWLEditorKit owlEditorKit, OWLFrame<OWLNamedIndividual> frame, OWLObjectProperty property, String label, AbstractSelectorPanel panel ) {
+    public  SKOSRelatedPropertyAssertionAxiomFrameSection(OWLEditorKit owlEditorKit, OWLFrame<OWLNamedIndividual> frame, OWLObjectProperty property, String label, AbstractSelectorPanel panel ) {
         super(owlEditorKit, label, label, frame);
         relatedProp = property;
         added = new HashSet<OWLObjectPropertyAssertionAxiom>();
@@ -102,7 +102,9 @@ public class SKOSRelatedPropertyAssertionAxiomFrameSection extends AbstractOWLFr
         inferredSet.addAll(new HashSet<OWLObjectPropertyExpression>(getReasoner().getEquivalentObjectProperties(relatedProp).getEntities()));
 
         for (OWLObjectPropertyExpression set : inferredSet) {
-            relatedProps.add(set.asOWLObjectProperty());
+            if (!set.isAnonymous()) {
+                relatedProps.add(set.asOWLObjectProperty());
+            }
         }
 
         getOWLModelManager().getReasonerPreferences().executeTask(ReasonerPreferences.OptionalInferenceTask.SHOW_INFERRED_OBJECT_PROPERTY_ASSERTIONS, new Runnable() {

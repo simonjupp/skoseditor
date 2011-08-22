@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.*;
 
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -97,34 +96,25 @@ public class SKOSDataPropertyAssertionAxiomFrameSection extends AbstractOWLFrame
 
 
     protected void refillInferred() {
-//        Map<OWLDataProperty, Set<OWLConstant>> rels = getReasoner().getDataPropertyRelationships(getRootObject());
-//
-//        Set<OWLDataProperty> relatedProps = new HashSet<OWLDataProperty>(10);
-//        relatedProps.add(relatedProperty);
-//        Set<Set<OWLDataProperty>> inferredSet = new HashSet<Set<OWLDataProperty>>();
-//        inferredSet.addAll(getReasoner().getDescendantProperties(relatedProperty));
-//        inferredSet.addAll(new HashSet(getReasoner().getEquivalentProperties(relatedProperty)));
-//        for (Set<OWLDataProperty> set : inferredSet) {
-//            relatedProps.addAll(set);
-//        }
-//
-//        for (OWLDataProperty prop : rels.keySet()) {
-//            if (relatedProps.contains(prop)) {
-//                for (OWLConstant constant : rels.get(prop)) {
-//                    OWLDataPropertyAssertionAxiom ax = getOWLDataFactory().getOWLDataPropertyAssertionAxiom(
-//                            getRootObject(),
-//                            prop,
-//                            constant);
-//                    if (!added.contains(ax)) {
-//                        addRow(new OWLDataPropertyAssertionAxiomFrameSectionRow(getOWLEditorKit(),
-//                                this,
-//                                null,
-//                                getRootObject(),
-//                                ax));
-//                    }
-//                }
-//            }
-//        }
+
+
+        for (OWLDataProperty property : getReasoner().getSubDataProperties(relatedProperty, true).getFlattened()) {
+            
+            Set<OWLLiteral> literals = getReasoner().getDataPropertyValues(getRootObject().asOWLNamedIndividual(), property);
+            for (OWLLiteral lit : literals) {
+                OWLDataPropertyAssertionAxiom ax = getOWLDataFactory().getOWLDataPropertyAssertionAxiom(
+                        property,
+                        getRootObject(),
+                        lit);
+                if (!added.contains(ax)) {
+                    addRow(new OWLDataPropertyAssertionAxiomFrameSectionRow(getOWLEditorKit(),
+                            this,
+                            null,
+                            getRootObject(),
+                            ax));
+                }
+            }
+        }
     }
 
 
