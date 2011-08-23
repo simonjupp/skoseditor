@@ -43,14 +43,14 @@ public class SKOSDataPropertyAssertionsFrame extends AbstractOWLFrame<OWLNamedIn
         super(owlEditorKit.getModelManager().getOWLOntologyManager());
         Set<OWLDataProperty> filterProps = new HashSet<OWLDataProperty>(7);
 
-        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.PREFLABEL.getIRI()), "SKOS preferred label"));
-        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.PREFLABEL.getIRI()));
+//        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.PREFLABEL.getIRI()), "SKOS preferred label"));
+//        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.PREFLABEL.getIRI()));
         addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.NOTATION  .getIRI()), "SKOS notation"));
         filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.NOTATION.getIRI()));
-        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.ALTLABEL.getIRI()), "SKOS alternate label"));
-        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.ALTLABEL.getIRI()));
-        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.HIDDENLABEL.getIRI()), "SKOS hidden label"));
-        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.HIDDENLABEL.getIRI()));
+//        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.ALTLABEL.getIRI()), "SKOS alternate label"));
+//        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.ALTLABEL.getIRI()));
+//        addSection(new SKOSDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.HIDDENLABEL.getIRI()), "SKOS hidden label"));
+//        filterProps.add(owlEditorKit.getModelManager().getOWLDataFactory().getOWLDataProperty(SKOSVocabulary.HIDDENLABEL.getIRI()));
         addSection(new SKOSOtherDataPropertyAssertionAxiomFrameSection(owlEditorKit, this, filterProps));
 
 //        addSection(new OWLDataPropertyAssertionAxiomFrameSection(owlEditorKit, this));

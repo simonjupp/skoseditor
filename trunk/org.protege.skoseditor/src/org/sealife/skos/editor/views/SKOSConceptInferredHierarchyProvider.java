@@ -69,7 +69,9 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
 
 
     public void setOntologies(Set<OWLOntology> ontologies) {
-        reasoner = modelManager.getReasoner();
+
+        reasoner = modelManager.getOWLReasonerManager().getCurrentReasoner();
+
         if (reasoner != null) {
             isClassified = true;
         }
@@ -78,14 +80,12 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
             return;
         }
         setFireEvents(false);
-        this.reasoner = modelManager.getReasoner();
         conceptsToView.clear();
         setUp();
 
         Set<OWLObjectProperty> allObjectProperties = reasoner.getRootOntology().getObjectPropertiesInSignature(true);
 
         for (OWLNamedIndividual ind : reasoner.getInstances( skosConcept, false).getFlattened()) {
-
 
             for (OWLObjectProperty prop : allObjectProperties) {
                 if (prop.equals(getManager().getOWLDataFactory().getOWLTopObjectProperty())) {
@@ -98,10 +98,8 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
                     ax.accept(getFilter());
 
                 }
-
-
             }
-
+            conceptsToView.add(ind);
         }
 
         for (OWLOntology ont : ontologies) {
@@ -124,9 +122,9 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     }
 
     protected Set<OWLObjectProperty> loadBroaderProps() {
-        Set<OWLObjectPropertyExpression> broaderProperty;
+
         OWLObjectProperty p = getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getIRI());
-        broaderProperty = reasoner.getSubObjectProperties(p, true).getFlattened();
+        Set<OWLObjectPropertyExpression> broaderProperty = reasoner.getSubObjectProperties(p, true).getFlattened();
 
         broaderProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.BROADER.getIRI()));
 
@@ -139,9 +137,9 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
     }
 
     protected Set<OWLObjectProperty> loadNarrowerProps() {
-        Set<OWLObjectPropertyExpression> narrowerProperty;
+
         OWLObjectProperty p = getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getIRI());
-        narrowerProperty = reasoner.getSubObjectProperties(p, true).getFlattened();
+        Set<OWLObjectPropertyExpression> narrowerProperty = reasoner.getSubObjectProperties(p, true).getFlattened();
 
         narrowerProperties.add(getManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.NARROWER.getIRI()));
 
