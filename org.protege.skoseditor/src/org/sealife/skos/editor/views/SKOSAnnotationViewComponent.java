@@ -1,15 +1,14 @@
 package org.sealife.skos.editor.views;
 
 import org.protege.editor.owl.ui.framelist.OWLFrameList;
-import org.protege.editor.owl.ui.framelist.OWLFrameListRenderer;
 import org.protege.editor.owl.ui.view.individual.AbstractOWLIndividualViewComponent;
-import org.sealife.skos.editor.frames.SKOSObjectPropertyAssertionsFrame;
+import org.sealife.skos.editor.frames.SKOSAnnotationFrame;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import javax.swing.*;
-import java.awt.*;
-/*
- * Copyright (C) 2007, University of Manchester
+import java.awt.*;/*
+ * Copyright (C) 2010, University of Manchester
  *
  * Modifications to the initial code base are copyright of their
  * respective authors, or their employers as appropriate.  Authorship
@@ -33,34 +32,34 @@ import java.awt.*;
 
 /**
  * Author: Simon Jupp<br>
- * The University Of Manchester<br>
+ * Date: Aug 22, 2011<br>
+ * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 30-Jan-2007<br><br>
  */
-public class SKOSObjectPropertyAssertionsViewComponent extends AbstractOWLIndividualViewComponent {
+public class SKOSAnnotationViewComponent extends AbstractOWLIndividualViewComponent {
 
-    private OWLFrameList<OWLNamedIndividual> list;
-    private SKOSObjectPropertyAssertionsFrame frame;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3036939007124710864L;
+    private OWLFrameList<OWLAnnotationSubject> list;
+
 
     public void initialiseIndividualsView() throws Exception {
-        list = new OWLFrameList<OWLNamedIndividual>(getOWLEditorKit(),
-                                                frame = new SKOSObjectPropertyAssertionsFrame(getOWLEditorKit()));
+        list = new OWLFrameList<OWLAnnotationSubject>(getOWLEditorKit(), new SKOSAnnotationFrame(getOWLEditorKit()));
         setLayout(new BorderLayout());
         add(new JScrollPane(list));
-        OWLFrameListRenderer renderer = new OWLFrameListRenderer(getOWLEditorKit());
-        renderer.setHighlightKeywords(false);
-        list.setCellRenderer(renderer);
     }
 
 
     public void disposeView() {
         list.dispose();
-        frame.dispose();
     }
 
 
     public OWLNamedIndividual updateView(OWLNamedIndividual selectedIndividual) {
-        list.setRootObject(selectedIndividual);
+        list.setRootObject(selectedIndividual == null ? null : selectedIndividual.getIRI());
         return selectedIndividual;
     }
 }
+

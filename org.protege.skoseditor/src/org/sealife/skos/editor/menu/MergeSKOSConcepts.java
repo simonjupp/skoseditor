@@ -49,7 +49,7 @@ public class MergeSKOSConcepts extends FocusedComponentAction<SKOSConceptAsserte
 
         SKOSConceptAssertedHierarchyViewComponent c = getCurrentTarget();
 
-        String term = MergeSKOSConceptsPanel.showDialog(getOWLEditorKit(), "Specify prefered label");
+        String term = MergeSKOSConceptsPanel.showDialog(getOWLEditorKit(), "Specify preferred label");
 
         System.err.println("term entered: " + term);
 
@@ -58,7 +58,7 @@ public class MergeSKOSConcepts extends FocusedComponentAction<SKOSConceptAsserte
 
         labels = new HashSet<String>();
 
-        // they will essentialy all get merged into this one!
+        // they will essentially all get merged into this one!
         List<RemoveAxiom> axs = new ArrayList<RemoveAxiom>();
 
         for (OWLNamedIndividual in : c.getSelectedIndividuals()) {

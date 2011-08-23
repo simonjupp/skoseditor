@@ -1,14 +1,10 @@
 package org.sealife.skos.editor.menu;
 
-import org.protege.editor.owl.model.event.EventType;
+import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.ui.action.ProtegeOWLAction;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 
 import java.awt.event.ActionEvent;
-import java.net.URI;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -40,7 +36,25 @@ import java.net.URI;
  */
 public class ImportSKOSDataModelAction extends ProtegeOWLAction {
 
+
+    final static String skos_dl_url = "http://www.w3.org/TR/skos-reference/skos-owl1-dl.rdf";
+
     public void actionPerformed(ActionEvent actionEvent) {
+
+        OWLModelManager man = getOWLEditorKit().getModelManager();
+
+        OWLOntology activeOntology = man.getActiveOntology();
+
+        OWLImportsDeclaration imports = man.getOWLDataFactory().getOWLImportsDeclaration(IRI.create(skos_dl_url));
+
+        try {
+            man.applyChange(new AddImport(activeOntology, imports));
+
+        }
+        catch (Exception e) {
+            
+        }
+
 //
 //        try {
 //
