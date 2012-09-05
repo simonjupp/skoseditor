@@ -43,6 +43,11 @@ public class SKOSAnnotationFrame extends AbstractOWLFrame<OWLAnnotationSubject> 
                 man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.ALTLABEL.getURI()))));
         addSection(new SKOSAnnotationFrameSection(man, this, "Hidden label",
                 man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.HIDDENLABEL.getURI()))));
-//        addSection(new OWLAnnotationFrameSection(man, this));
+        addSection(new SKOSAnnotationFrameSection(man, this, "Definition", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.DEFINITION.getURI()))));
+        addSection(new SKOSAnnotationFrameSection(man, this, "Editorial note", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.EDITORIALNOTE.getURI()))));
+        addSection(new SKOSAnnotationFrameSection(man, this, "Change note", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.CHANGENOTE.getURI()))));
+        addSection(new SKOSAnnotationFrameSection(man, this, "Example", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.EXAMPLE.getURI()))));
+        addSection(new SKOSAnnotationFrameSection(man, this, "History note", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.HISTORYNOTE.getURI()))));
+        addSection(new SKOSAnnotationFrameSection(man, this, "Scope note", man.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(SKOSRDFVocabulary.SCOPENOTE.getURI()))));
     }
 }
