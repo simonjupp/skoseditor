@@ -1,0 +1,18 @@
+#summary Introductory Tutorial for using the SKOSEd plugin for Protege
+
+= Introduction =
+
+The files in SKOS EditorialV11.zip should help a newbie learn how to make SKOS-based glossaries using the SKOSed plugin for Protege.  It also provides an example glossary for the Semantic Web.
+
+
+= Details =
+
+
+* SKOS Editor TutorialV11.docx  	- A tutorial for the Protege SKOSEd plugin
+
+* SemanticWebGlossaryV12.docx	- A glossary of Semantic Web symbols, acronyms, and terms.
+
+* GlossaryParser.java	- A Java version; exports the glossary into SKOS/RDF format.
+
+* SemanticWebGlossary.owl	- The RDF/SKOS version of the glossary, readable by Protégé.
+README.TXT			This table, in pure ASCII format.
