@@ -1,4 +1,4 @@
-#summary Introductory Tutorial for the Protege SKOSEd plugin
+#summary Tutorial for the Protege SKOSEd plugin
 
 = Introduction =
 
