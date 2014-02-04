@@ -4,7 +4,7 @@
 
 The files in SKOS EditorialV11.zip should help a newbie learn how to make SKOS-based glossaries using the SKOSed plugin for Protege.  It also provides an example glossary for the Semantic Web.  Since Google doesn't allow project downloads any more, I put it on my Google shared drive at https://drive.google.com/file/d/0BwJWZwjXwkPla2lBZV9aWUJ1OFk/edit?usp=sharing 
 
-= Details =
+= Details (of the SKOS Editor Tutorial zip file) =
 
 * SKOS Editor TutorialV11.docx - A tutorial for the Protege SKOSEd plugin
 
