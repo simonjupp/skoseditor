@@ -8,11 +8,12 @@ Bundle-Category: protege
 Bundle-Description: Plugin for viewing SKOS vocabularies in Protege
 Bundle-Vendor: Sealife project
 Bundle-DocURL: http://cs.man.ac.uk/~sjupp
-Bundle-ClassPath: .,   lib/skosapi-3-bin.jar,   icons/,   resources/
+Bundle-ClassPath: .,   lib/skos-core-3.2.jar,  lib/skos-impl-3.2.jar,  icons/,   resources/
 Update-Url: http://skoseditor.googlecode.com/svn/trunk/org.sealife.sko
  s/skos-update.properties    
 Import-Package: org.osgi.framework,org.apache.log4j,javax.swing,javax.
- swing.event,javax.swing.tree,javax.swing.border,javax.swing.table
-Bundle-Version: 1.1.2
+ swing.event,javax.swing.tree,javax.swing.border,javax.swing.table,com
+ .google.common.base
+Bundle-Version: 1.2.0
 Bundle-Activator: org.protege.editor.core.plugin.DefaultPluginActivator
-Require-Bundle: org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application;bundle-version="4.1",org.protege.editor.owl;bundle-version="4.1",org.semanticweb.owl.owlapi;bundle-version="3.1"
+Require-Bundle: org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application;bundle-version="5.2",org.protege.editor.owl;bundle-version="5.2",org.semanticweb.owl.owlapi;bundle-version="4.2.8"

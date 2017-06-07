@@ -95,7 +95,7 @@ public class SKOSConceptInferredHierarchyProvider extends AbstractSKOSHierarchyP
                 for (OWLNamedIndividual relInd : values.getFlattened()) {
 
                     OWLObjectPropertyAssertionAxiom ax = getManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(prop, ind, relInd);
-                    ax.accept(getFilter());
+                    ax.accept(getSKOSFilter());
 
                 }
             }

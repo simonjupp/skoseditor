@@ -3,12 +3,11 @@ package org.sealife.skos.editor;
 import org.protege.editor.core.prefs.Preferences;
 import org.protege.editor.core.prefs.PreferencesManager;
 import org.protege.editor.owl.ui.renderer.OWLEntityRendererImpl;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 
-import java.net.URISyntaxException;
 import java.util.*;
 /*
  * Copyright (C) 2007, University of Manchester
@@ -51,6 +50,7 @@ public class SKOSRendererPreferences {
     public static final String ANY_LANGUAGE = "!";
 
 
+    private static final OWLDataFactory df=OWLManager.getOWLDataFactory();
 
     private boolean useSKOSRenderer = false;
 
@@ -191,7 +191,7 @@ public class SKOSRendererPreferences {
         List<String> values = getPreferences().getStringList(SKOSLABELS, defaultValues);
 
         if (values.equals(defaultValues)){
-              dataProperties.add(new OWLDataPropertyImpl(new OWLDataFactoryImpl(), SKOSVocabulary.PREFLABEL.getIRI()));
+              dataProperties.add(df.getOWLDataProperty(SKOSVocabulary.PREFLABEL.getIRI()));
 //            annotationURIS.add(OWLRDFVocabulary.RDFS_LABEL.getURI());
 //            annotationURIS.add(URI.create("http://www.w3.org/2004/02/skos/core#prefLabel"));
         }
@@ -207,7 +207,7 @@ public class SKOSRendererPreferences {
                         }
                         langs.add(token);
                     }
-                    OWLDataProperty p1 = new OWLDataPropertyImpl(new OWLDataFactoryImpl(), iri);
+                    OWLDataProperty p1 = df.getOWLDataProperty(iri);
                     dataProperties.add(p1);
                     dataPropLanguages.put(p1, langs);
             }

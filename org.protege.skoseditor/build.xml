@@ -5,8 +5,8 @@
 
    <property file="version.properties"/>
    <property name="major.version" value="1"/>
-   <property name="minor.version" value="1"/>
-   <property name="micro.version" value="2"/>
+   <property name="minor.version" value="2"/>
+   <property name="micro.version" value="0"/>
 
 
    <!-- 
@@ -69,7 +69,7 @@
         The following target only needs to be modified if the
         developer needs to obtain some jar files that are contained in
         the Protege bundles.  The contents of these jar files are
-        found when Protege 4 runs but may be needed in order to
+        found when Protege 5 runs but may be needed in order to
         compile the plugin. 
      -->
    <target name = "buildlibs" depends="init, checkProtegeLibsAndReport">
@@ -79,6 +79,12 @@
                <include name = "**/log4j.jar"/>
            </patternset>
        </unjar>
+       <unjar dest="${build}"
+           src="${protege.lib}">
+           <patternset>
+        	   <include name = "**/mdock-2.0.1.jar"/>
+           </patternset>
+       </unjar>
    </target>
 
 
@@ -86,7 +92,7 @@
    <!-- 
         The following target only needs to be modified if the user
         needs to change the classpath.  It is preconfigured to use
-        the common protege 4 jars, the lib directory and the
+        the common protege 5 jars, the lib directory and the
         libraries that have been uncovered in buildlibs. 
      -->
    <target name = "checkProtegeLibs">
@@ -96,15 +102,19 @@
 	 <available file="${equinox.common}" type = "file"/>
 	 <available file="${equinox.registry}" type = "file"/>
 	 <available file="${owl.editor.jar}" type = "file"/>
-         <available file="${owl.lib}" type="file"/>
+   	 <available file="${owl.lib}" type="file"/>
        </and>
      </condition>
      <path id = "project.classpath">    
-       <pathelement location = "${protege.lib}"/>
+       <pathelement location="${protege.lib}"/>
        <pathelement location="${equinox.common}"/>
        <pathelement location="${equinox.registry}"/>
+       <pathelement location="${javax.inject.jar}"/>
+       <pathelement location="${google.guava.jar}"/>
+	   <pathelement location="${google.guice.jar}"/>
        <pathelement location="${owl.editor.jar}"/>
        <pathelement location="${owl.lib}"/>
+       <pathelement location="${mdock.jar}"/>
        <fileset dir="${lib}"/>
        <fileset dir="${genlib}"/>
      </path>
@@ -139,16 +149,26 @@
    <property name="equinox.registry"
              location="${protege.home}/bundles/org.eclipse.equinox.registry.jar"/>
    <property name="protege.lib" 
-             location="${protege.home}/bundles/org.protege.editor.core.application.jar"/>
+             location="${protege.home}/bundles/protege-editor-core.jar"/>
    <property name="common.lib"
-             location="${protege.home}/bundles/org.protege.common.jar"/>
+             location="${protege.home}/bundles/protege-common.jar"/>
 
    <property name="owl.lib"
-             location="${protege.home}/plugins/org.semanticweb.owl.owlapi.jar"/>
+             location="${protege.home}/bundles/owlapi-osgidistribution.jar"/>
 
    <property name="owl.editor.jar"
-	     location="${protege.home}/plugins/org.protege.editor.owl.jar"/>
+             location="${protege.home}/bundles/protege-editor-owl.jar"/>
 
+   <property name="google.guice.jar"
+             location="${protege.home}/bundles/guice.jar"/>
+	
+   <property name="google.guava.jar"
+             location="${protege.home}/bundles/guava.jar"/>
+   <property name="javax.inject.jar"
+             location="${protege.home}/bundles/org.apache.servicemix.bundles.javax-inject.jar"/>
+
+   <property name="mdock.jar"
+             location="${build}/target/lib/mdock-2.0.1.jar"/>
    <!-- end of equinox specific settings -->
 
 
@@ -214,13 +234,13 @@
    </target>
 
    <target name = "jar" depends = "compile, copy.resources">
-     <jar jarfile = "${build}/${plugin}.jar"
+     <jar jarfile = "${build}/${plugin}-${bundle.version}.jar"
           basedir = "${classes}" 
           manifest = "${build}/manifest.mf"/>
    </target>
 
    <target name = "install" depends = "jar">
-     <copy file="${build}/${plugin}.jar" 
+     <copy file="${build}/${plugin}-${bundle.version}.jar" 
            todir = "${protege.home}/plugins"
            overwrite = "true"/>
    </target>

@@ -1,0 +1,6 @@
+*.class
+build/
+.project
+.classpath
+*.core.prefs
+.jazzignore

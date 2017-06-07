@@ -12,7 +12,8 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/skosapi-3-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/skos-core-3.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/skos-impl-3.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
