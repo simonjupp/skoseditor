@@ -27,7 +27,8 @@ public class SKOSEntityRenderer implements OWLModelManagerEntityRenderer {
 
         SKOSRendererPreferences prefs = SKOSRendererPreferences.getInstance();
 
-        List<OWLPropertyExpression<?,?>> properties = new ArrayList<OWLPropertyExpression<?,?>>(prefs.getDataPropertyLabels());
+        List<OWLPropertyExpression> properties = new ArrayList<OWLPropertyExpression> ();
+        properties.addAll(prefs.getDataPropertyLabels());
 
 
         Map<OWLDataPropertyExpression, List<String>> propToLangs = new HashMap<OWLDataPropertyExpression, List<String>>(prefs.getPropertyLangs());

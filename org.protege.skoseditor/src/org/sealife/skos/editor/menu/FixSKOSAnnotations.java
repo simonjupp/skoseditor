@@ -3,6 +3,7 @@ package org.sealife.skos.editor.menu;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.ui.action.ProtegeOWLAction;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 import uk.ac.manchester.cs.skos.SKOSRDFVocabulary;
 
@@ -70,7 +71,7 @@ public class FixSKOSAnnotations extends ProtegeOWLAction {
 
         }
 
-        OWLEntityRemover remover = new OWLEntityRemover(manager.getOWLOntologyManager(), manager.getOntologies());
+        OWLEntityRemover remover = new OWLEntityRemover(manager.getOntologies());
 
         for (OWLDataProperty p : dataPropertiesToRemove) {
             remover.visit(p);
@@ -86,7 +87,7 @@ public class FixSKOSAnnotations extends ProtegeOWLAction {
 
         allProps.add(owlDataProperty);
 
-        for (OWLDataPropertyExpression subProp : owlDataProperty.getSubProperties(onto)) {
+        for (OWLDataPropertyExpression subProp : EntitySearcher.getSubProperties(owlDataProperty, onto)) {
             if (!subProp.isAnonymous()) {
                 convertAxioms(onto, subProp.asOWLDataProperty());
                 createSubAnnotionProp(onto, owlDataProperty, subProp.asOWLDataProperty());

@@ -8,6 +8,7 @@ import org.protege.editor.owl.ui.frame.OWLAnnotationsFrameSectionRow;
 import org.protege.editor.owl.ui.frame.OWLFrame;
 import org.protege.editor.owl.ui.frame.OWLFrameSectionRow;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 import java.util.*;/*
  * Copyright (C) 2010, University of Manchester
@@ -88,7 +89,7 @@ public class SKOSAnnotationFrameSection extends AbstractOWLFrameSection<OWLAnnot
 
         Set<OWLAnnotationProperty> subProps = new HashSet<OWLAnnotationProperty>();
         subProps.add(property);
-        for (OWLAnnotationProperty subProp : property.getSubProperties(getOWLEditorKit().getModelManager().getActiveOntology())) {
+        for (OWLAnnotationProperty subProp : EntitySearcher.getSubProperties(property, getOWLEditorKit().getModelManager().getActiveOntology())) {
             subProps.addAll(getSubProperties(subProp));
         }
         return subProps;
