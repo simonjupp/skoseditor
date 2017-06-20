@@ -59,6 +59,12 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
         this.conceptClass = owlEditorKit.getModelManager().getOWLDataFactory().getOWLClass(SKOSVocabulary.CONCEPT.getIRI());
         this.inScheme = owlEditorKit.getModelManager().getOWLDataFactory().getOWLObjectProperty(SKOSVocabulary.INSCHEME.getIRI());
 
+        Container container = this;
+        Component rootComponent = getComponent(0);
+        if (null != rootComponent && rootComponent instanceof JPanel) {
+            container = (Container) rootComponent; 
+        }
+        
         schemaBox = ConceptSchemeComboBox.getConceptSchemeComboBox(owlEditorKit);
 
         if(!ConceptSchemeComboBox.getConceptSchemes(owlEditorKit).isEmpty()) {
@@ -68,7 +74,7 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
             jLabel.setBorder(new EmptyBorder(2,10,2,2));
             schemeSelector.add(jLabel, BorderLayout.NORTH);
             schemeSelector.add(schemaBox, BorderLayout.CENTER);
-            add(schemeSelector);
+            container.add(schemeSelector, new GridBagConstraints(0, GridBagConstraints.RELATIVE, 2, 1, 0.0, 0.0, GridBagConstraints.BASELINE_LEADING, GridBagConstraints.HORIZONTAL, new Insets(10, 2, 10, 2), 0, 0));
         }
     }
 
@@ -80,7 +86,7 @@ public class SKOSEntityCreationPanel<T extends OWLEntity> extends OWLEntityCreat
     public static <T extends OWLEntity> OWLEntityCreationSet<T> showDialog(OWLEditorKit owlEditorKit, String message, Class<T> type) {
         SKOSEntityCreationPanel panel = new SKOSEntityCreationPanel<T>(owlEditorKit, message, type);
 
-        int ret = new UIHelper(owlEditorKit).showValidatingDialog("Select a SKOS Concept", panel, panel.getFocusComponent());
+        int ret = new UIHelper(owlEditorKit).showValidatingDialog("Create a new SKOS Concept", panel, panel.getFocusComponent());
 
         if (ret == JOptionPane.OK_OPTION) {
             return panel.getOWLEntityCreationSet();
