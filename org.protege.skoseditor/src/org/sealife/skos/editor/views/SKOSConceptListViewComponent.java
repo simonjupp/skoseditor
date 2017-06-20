@@ -78,6 +78,7 @@ public class SKOSConceptListViewComponent extends
 	private OWLModelManagerListener modelManagerListener;
 	private int selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
 	private boolean selectionChangedByUser = true;
+	private boolean ontologyChangeListenerAlwaysEnabled = true;
 
     SKOSManager skosManager;
     SKOSDataFactory skosDataFactory;
@@ -87,7 +88,9 @@ public class SKOSConceptListViewComponent extends
     	super();
     }
 
+    public SKOSConceptListViewComponent(boolean ontologyChangeListenerAlwaysEnabled) {
     	super();
+    	this.ontologyChangeListenerAlwaysEnabled = ontologyChangeListenerAlwaysEnabled;
     }
 
     
@@ -132,6 +135,7 @@ public class SKOSConceptListViewComponent extends
 			}
 		};
 		
+		if (this.ontologyChangeListenerAlwaysEnabled) {
 			getOWLModelManager().addOntologyChangeListener(listener);
 		}
 
@@ -284,6 +288,7 @@ public class SKOSConceptListViewComponent extends
 
 	private void addIndividual() {
 
+		if (!ontologyChangeListenerAlwaysEnabled) {
 			getOWLModelManager().addOntologyChangeListener(listener);
 		}
 		
@@ -291,12 +296,15 @@ public class SKOSConceptListViewComponent extends
 
 //        OWLEntityCreationSet<OWLIndividual> set = this.getOWLWorkspace().createOWLIndividual();
 		if (set == null) {
+			if (!ontologyChangeListenerAlwaysEnabled) {
 				getOWLModelManager().removeOntologyChangeListener(listener);
+			}
 			return;
 		}
 		java.util.List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 		changes.addAll(set.getOntologyChanges());
 		this.getOWLModelManager().applyChanges(changes);
+		if (!ontologyChangeListenerAlwaysEnabled) {
 			getOWLModelManager().removeOntologyChangeListener(listener);
 		}
 		OWLNamedIndividual ind = set.getOWLEntity();
