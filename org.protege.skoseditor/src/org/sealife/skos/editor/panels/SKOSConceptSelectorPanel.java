@@ -143,7 +143,7 @@ public class SKOSConceptSelectorPanel extends AbstractSelectorPanel<OWLNamedIndi
 
             public ViewComponent newInstance() throws ClassNotFoundException,
                     IllegalAccessException, InstantiationException {
-                viewComponent = new SKOSConceptListViewComponent(){
+                viewComponent = new SKOSConceptListViewComponent(false){
                     protected void setupActions() {
                         if (isEditable()){
                             super.setupActions();
