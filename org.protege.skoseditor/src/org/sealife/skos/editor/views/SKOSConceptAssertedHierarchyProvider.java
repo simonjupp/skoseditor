@@ -1,10 +1,13 @@
 package org.sealife.skos.editor.views;
 
+import com.google.common.base.Optional;
+
 import org.sealife.skos.editor.SKOSVocabulary;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.skos.SKOSCreationException;
 import org.semanticweb.skosapibinding.SKOSManager;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -80,13 +83,14 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
 
         for (OWLOntology ont : ontologies) {
             try {
-                skosManager.loadDataset(ont.getOntologyID().getOntologyIRI().toURI());
+                Optional<IRI> ontologyIRI = ont.getOntologyID().getOntologyIRI();
+                skosManager.loadDataset(ontologyIRI.get().toURI());
             } catch (SKOSCreationException e) {
                 e.printStackTrace();  
             }
 
             for (OWLObjectPropertyAssertionAxiom propAx : ont.getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
-                propAx.accept(getFilter());
+                propAx.accept(getSKOSFilter());
             }
 
 
@@ -122,7 +126,7 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
 
                         setAdd(change instanceof AddAxiom);
 
-                        change.getAxiom().accept(getFilter());
+                        change.getAxiom().accept(getSKOSFilter());
                         if(affectedIndividuals == null) {
                             affectedIndividuals = new HashSet<OWLNamedIndividual>();
                         }
@@ -149,7 +153,7 @@ public class SKOSConceptAssertedHierarchyProvider extends AbstractSKOSHierarchyP
 
                 for (OWLObjectPropertyAssertionAxiom propAx : ont.getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
                     setAdd(true);
-                    propAx.accept(getFilter());
+                    propAx.accept(getSKOSFilter());
                 }
 
                 for (OWLClassAssertionAxiom axiom : ont.getAxioms(AxiomType.CLASS_ASSERTION)) {

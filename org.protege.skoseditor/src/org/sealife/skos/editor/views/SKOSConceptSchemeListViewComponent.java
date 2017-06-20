@@ -176,11 +176,9 @@ public class SKOSConceptSchemeListViewComponent extends
 	}
 
 	private void reset() {
-		this.list.setListData(this.individualsInList.toArray());
-		OWLEntity entity = this.getSelectedOWLIndividual();
-		if (entity instanceof OWLNamedIndividual) {
-			this.list.setSelectedValue(entity, true);
-		}
+		this.list.setListData(this.individualsInList.toArray(new OWLNamedIndividual[this.individualsInList.size()]));
+		OWLNamedIndividual individual = this.getSelectedOWLIndividual();
+		this.list.setSelectedValue(individual, true);
 	}
 
 	@Override
@@ -328,7 +326,6 @@ public class SKOSConceptSchemeListViewComponent extends
 
 	public void handleDelete() {
 		OWLEntityRemover entityRemover = new OWLEntityRemover(this
-				.getOWLModelManager().getOWLOntologyManager(), this
 				.getOWLModelManager().getOntologies());
 		for (OWLNamedIndividual ind : this.getSelectedIndividuals()) {
 			ind.accept(entityRemover);
