@@ -105,7 +105,7 @@ public class SKOSInSchemeAssertedHierarchyProvider extends AbstractSKOSHierarchy
             for (OWLOntology onto : ontologies) {
 
                 for (OWLAxiom ax : onto.getReferencingAxioms(ind)) {
-                    ax.accept(getFilter());
+                    ax.accept(getSKOSFilter());
                 }
 
             }

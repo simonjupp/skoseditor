@@ -122,7 +122,7 @@ public class SKOSInSchemeInferredHierarchyProvider extends AbstractSKOSHierarchy
 
                             if (reasoner.getObjectPropertyValues(relind, inScheme).containsEntity(conceptSchema)) {
                                 OWLObjectPropertyAssertionAxiom ax = getManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(prop,ind, relind);
-                                ax.accept(getFilter());
+                                ax.accept(getSKOSFilter());
                             }
                             conceptsToView.add(ind);
                         }

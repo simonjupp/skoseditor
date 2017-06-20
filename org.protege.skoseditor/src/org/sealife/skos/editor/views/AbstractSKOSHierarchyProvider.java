@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import java.util.*;
+import java.util.function.Predicate;
 /*
  * Copyright (C) 2007, University of Manchester
  *
@@ -39,11 +40,11 @@ public abstract class AbstractSKOSHierarchyProvider extends AbstractOWLObjectHie
     private Set<OWLNamedIndividual> roots;
     private Set<OWLNamedIndividual> nonroots;
 
-    public OWLIndividualAxiomFilter getFilter() {
-        return filter;
+    public OWLIndividualAxiomFilter getSKOSFilter() {
+        return skosFilter;
     }
 
-    private OWLIndividualAxiomFilter filter = new OWLIndividualAxiomFilter();
+    private OWLIndividualAxiomFilter skosFilter = new OWLIndividualAxiomFilter();
 
     private Map<OWLNamedIndividual, Set<OWLNamedIndividual>> parent2Child;
 
@@ -121,7 +122,7 @@ public abstract class AbstractSKOSHierarchyProvider extends AbstractOWLObjectHie
     }
 
     public boolean setAdd(boolean add) {
-        filter.setAdd(add);
+        skosFilter.setAdd(add);
         return add;
     }
 
